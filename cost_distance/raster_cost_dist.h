@@ -20,7 +20,7 @@ public:
         position;
 
 
-    float** cost_distance(int **inicio,float **fricc,int m, int n,position array[]);
+    float** cost_distance(int inicio_x,int inicio_y,float **fricc,int m, int n,position array[]);
     int movimientos(int pos_x,int pos_y,float costo_acumulado,float **fricc,int m, int n,position array[]);
     int movimientos_init(int pos_x,int pos_y,float costo_acumulado,float **fricc,int m, int n,position array[]);
     float** raster_cost(position array[],float **map_cost,int count);

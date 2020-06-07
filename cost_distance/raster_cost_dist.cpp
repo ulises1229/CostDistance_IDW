@@ -23,14 +23,14 @@ using namespace std;
 
 int start = 0;
 
-float** Raster_cost_dist::cost_distance(int **inicio , float **fricc, int m, int n,position array[]) {
+float** Raster_cost_dist::cost_distance(int inicio_x,int inicio_y,float **fricc, int m, int n,position array[]) {
     float**map_cost = new float*[m];
     for(int i=0;i<m;i++)
         map_cost[i] = new float[n];
 
     for(int i=0;i<m;i++){
         for(int j=0;j<n;j++){
-            map_cost[i][j]=10000000000;
+            map_cost[i][j]=1000000000000;
             if(fricc[i][j] < 0.0){
                 map_cost[i][j]=-9999;
             }
@@ -38,8 +38,8 @@ float** Raster_cost_dist::cost_distance(int **inicio , float **fricc, int m, int
     }
     int count = 0;
     for(int i=0;i<1;i++) {
-        map_cost[inicio[i][0]][inicio[i][1]]=0;
-        count = movimientos_init(inicio[i][1], inicio[i][0],0, fricc, m, n, array);
+        map_cost[inicio_y][inicio_x]=0;
+        count = movimientos_init(inicio_x, inicio_y,0, fricc, m, n, array);
         raster_cost(array, map_cost, count);
     }
     //(costos.size())>5
@@ -102,7 +102,7 @@ float** Raster_cost_dist::raster_cost(position *array,float **map_cost,int count
                 array_1.y=array[i].y;
                 array_1.costo=array[i].val_fricc;
                 costos[array[i].val_fricc+(0.000001*start)]=array_1;
-                cuenta_global++;
+                //cuenta_global++;
             }
 
         }
