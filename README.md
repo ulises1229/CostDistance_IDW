@@ -25,7 +25,9 @@ Then using pacman in the msys2 command prompt, get the MingW (pacman -S mingw-w6
 check if gdal is installed with te following command, you should be in the root, use the comand -pwd, and you see where you are /user name/home go to /
 then use the comand  (pacman -Qo gdal) to find gdal.
 
-### Link Gdal to Cmake list 
+### Link Gdal to Cmake 
+
+#### CMakelists 
 
 you need to put the following in your cmake list and do the changes in the links
 ```
