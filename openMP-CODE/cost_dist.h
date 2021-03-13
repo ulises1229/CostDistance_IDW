@@ -15,7 +15,7 @@ public:
         float val_fricc;
     } position;
 
-    float** cost_distance(int inicio_x,int inicio_y,float **fricc,int m, int n, position array[],map<double,l_dist> costos);
+    float** cost_distance(int inicio_x,int inicio_y,float **fricc,int m, int n, position array[],map<double,l_dist> &costos);
     int movimientos(int pos_x,int pos_y,float costo_acumulado,float **fricc,int m, int n,position array[]);
     int movimientos_init(int pos_x,int pos_y,float costo_acumulado,float **fricc,int m, int n,position array[]);
     void raster_cost(position *array,float **map_cost,int count, map<double,l_dist> &costos,int &start);

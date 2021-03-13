@@ -59,7 +59,7 @@ int main() {
     cout << "llave final " << fin->first<<endl;
     int start=int(init->first);
     int end= int(fin->first);
-  omp_set_num_threads(8);
+    omp_set_num_threads(1);
 #pragma omp parallel for private(i,bio,lugar,map_cost_dist,costos)
   //----------------------------------------------------------------------------
   //comparar mapas CD de la forma serial y paralelo
@@ -80,7 +80,7 @@ int main() {
                     clock_t end_cost_dist = clock();//termina tiempo
                     time_local.CD =(float) (end_cost_dist - start_cost_dist) /(float) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
 
-                    objrast.matrix_to_tiff(map_cost_dist, M, N,i,"open_MP_mapa_cost_dist_");
+                    objrast.matrix_to_tiff(map_cost_dist, M, N,i,"serial_MP_mapa_cost_dist_");
                     //-------------------------------------------------------------------------------------------------------inicia IDW
                     clock_t start_IDW = clock();//inicia tiempo cost_dist
                     objIDW.IDW_test(bio->second,map_cost_dist,IDW,M,N,exp,cell_null);
@@ -98,12 +98,12 @@ int main() {
         //bio_local.erase(bio);//borrar comunidad ya explorada
         //bio= bio_local.begin();
     }
-    objrast.matrix_to_tiff(IDW, M, N,cont,"Open_MP_mapa_IDW_");//crea tiff de IDW de todas las localidades calculadas
+    objrast.matrix_to_tiff(IDW, M, N,cont,"serial_MP_mapa_IDW_");//crea tiff de IDW de todas las localidades calculadas
     objrast.guardar_tiempos(time_ejecucion);
     clock_t end_global = clock();//termina tiempo
     double duration = (double)(end_global - start_global) / (double) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
     printf("tiempo global: %lf segundos \n", duration);
-    cout << "Listo_10\n" << endl;
+    cout << "Listo\n" << endl;
     return 0;
 }
 

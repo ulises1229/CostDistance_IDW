@@ -5,7 +5,7 @@
 
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-float** Cost_dist::cost_distance(int inicio_x,int inicio_y,float **fricc, int m, int n, position array[],map<double,l_dist> costos) {
+float** Cost_dist::cost_distance(int inicio_x,int inicio_y,float **fricc, int m, int n, position array[],map<double,l_dist> &costos) {
     int count = 0;
     int start = 0;
     float**map_cost = new float*[m];
