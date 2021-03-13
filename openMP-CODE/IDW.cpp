@@ -17,8 +17,11 @@ void IDW::IDW_test(float req, float **cost_dist, float **&suma, int ROWS,  int C
             if(cost_dist[i][j]>0 && cost_dist[i][j]!=float(cell_null) ) {
                 if(cost_dist[i][j]>1000000)
                     suma[i][j]=0;
-                else
+                else {
+                    #pragma omp atomic
                     suma[i][j] += req / pow(cost_dist[i][j], exp);
+                }
+
             }
         }
 }

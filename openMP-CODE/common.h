@@ -23,6 +23,7 @@
 #include <utility>
 #include <map>
 #include <iomanip>
+#include <limits>
 //---------------------------------gdal
 
 #include "gdal/gdal.h"

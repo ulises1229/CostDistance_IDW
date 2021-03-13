@@ -7,7 +7,7 @@ int main() {
     std::string str;
 //------------------------------------------------------------------------variables
     int M,N,M_i,N_i;//M: fila y N: columna
-    int i;
+    int i,j,k;
     int cell_null;//valor nulo comunidad
     int cell_null_2;//valor nulo friccion
     int scale;//escala del mapa
@@ -23,7 +23,7 @@ int main() {
     map<int, float> bio_local;
     Raster::tiempo time_local;
     map<int, Raster::tiempo> time_ejecucion;
-    map <double,l_dist> costos;//mapa costo distancia con los posibles movimientos
+    map<double,l_dist> costos;//mapa costo distancia con los posibles movimientos
 //------------------------------------------------------------------------objetos
     Raster objrast;
     IDW objIDW;
@@ -43,10 +43,14 @@ int main() {
     cout << cell_null  << endl;
 //-------------------------------------------------------------------------------------------------------valores iniciales
     Cost_dist::position datos[100];
-    exp=1.005;
     float **IDW = new float *[M]; //matriz IDW para 1 localidad
     for ( i = 0; i < M; i++)
         IDW[i] = new float[N];
+    float **map_cost = new float *[M];
+    for (int i=0;i<M;i++)
+        map_cost[i] = new float[N];
+    cout << M << endl;
+    cout << N << endl;
     objIDW.reset_Matrix(IDW, M, N, -1); //llena la matriz inicial del valor indicado
     std::map<int,float>::iterator bio; //iterados mapa requisitos localidad
     std::map<int,float>::iterator init;
@@ -59,51 +63,55 @@ int main() {
     cout << "llave final " << fin->first<<endl;
     int start=int(init->first);
     int end= int(fin->first);
-    omp_set_num_threads(1);
-#pragma omp parallel for private(i,bio,lugar,map_cost_dist,costos)
-  //----------------------------------------------------------------------------
-  //comparar mapas CD de la forma serial y paralelo
-  //---------------------------------------------------------------------------
+    //private(i,j,k,lugar,datos)
+    omp_set_num_threads(2);
+#pragma omp parallel for default(none) shared(IDW,cont) private(i,j,k,lugar,datos,bio,costos,map_cost_dist, objrast, objIDW, objcost) firstprivate(map_cost,fric_map,M,N,start,end,bio_local,localidades,exp,cell_null)
     for(i=start;i<=end;i++){
-        //printf("main_%d\n",i);
+        for(j=0;j<M;j++){
+            for(k=0;k<N;k++){
+                map_cost[j][k]= std::numeric_limits<float>::max();
+                if(fric_map[j][k] < 0.0){
+                    map_cost[j][k]=-9999;
+                }
+            }
+        }
+        //------------------------------------------------
         if(bio_local.find(i)!=bio_local.end()) {//que no encontró la llave
             bio = bio_local.find(i);
             if (bio->second != 0){
                 if(localidades.find(i)!=localidades.end()) { //busca localidad para la que se tengan requisitos
                     lugar = localidades.find(bio->first);//buscar ubicacion de la localidad
                     //-------------------------------------------------------------------------------------------------------inicia costo ditancia
-                    clock_t start_cost_dist = clock();//inicia tiempo cost_dist
+                    //clock_t start_cost_dist = clock();//inicia tiempo cost_dist
                    //#pragma omp critical
                     costos.clear();
-                    map_cost_dist = objcost.cost_distance(lugar->second.x, lugar->second.y, fric_map, M, N,datos,costos);
-                    //printf("CD:fin\n");
-                    clock_t end_cost_dist = clock();//termina tiempo
-                    time_local.CD =(float) (end_cost_dist - start_cost_dist) /(float) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
-
-                    objrast.matrix_to_tiff(map_cost_dist, M, N,i,"serial_MP_mapa_cost_dist_");
+                    map_cost_dist = objcost.cost_distance(lugar->second.x, lugar->second.y, fric_map, M, N, datos, costos, map_cost );
+                    //clock_t end_cost_dist = clock();//termina tiempo
+                    //time_local.CD =(float) (end_cost_dist - start_cost_dist) /(float) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
+                    objrast.matrix_to_tiff(map_cost_dist, M, N,i,"prueba_MP_mapa_cost_dist_");
                     //-------------------------------------------------------------------------------------------------------inicia IDW
-                    clock_t start_IDW = clock();//inicia tiempo cost_dist
+                    //clock_t start_IDW = clock();//inicia tiempo cost_dist
                     objIDW.IDW_test(bio->second,map_cost_dist,IDW,M,N,exp,cell_null);
-                    clock_t end_IDW = clock();//termina tiempo
-                    time_local.IDW =(float) (end_IDW - start_IDW) / (float) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
+                    //clock_t end_IDW = clock();//termina tiempo
+                    //time_local.IDW =(float) (end_IDW - start_IDW) / (float) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
                     //se guarda en el mapa la localidad que se exploró como llave y la estructura con los tiempos CD e IDW
-                    time_ejecucion.insert(pair<int, Raster::tiempo>(bio->first, time_local));
+                    //time_ejecucion.insert(pair<int, Raster::tiempo>(bio->first, time_local));
                     cont++;//se suman las localidades calculadas
                     //cout << "exploracion: " << bio->first << " completa" << endl;
                 }
-            } else {
-                cout << "no entró comunidad " << bio->first << endl;
             }
+          //  else
+            //    cout << "no entro comunidad " << bio->first << endl;
         }
         //bio_local.erase(bio);//borrar comunidad ya explorada
         //bio= bio_local.begin();
     }
-    objrast.matrix_to_tiff(IDW, M, N,cont,"serial_MP_mapa_IDW_");//crea tiff de IDW de todas las localidades calculadas
+    objrast.matrix_to_tiff(IDW, M, N,cont,"prueba_MP_mapa_IDW_");//crea tiff de IDW de todas las localidades calculadas
     objrast.guardar_tiempos(time_ejecucion);
     clock_t end_global = clock();//termina tiempo
     double duration = (double)(end_global - start_global) / (double) CLOCKS_PER_SEC;//calcula tiempo de ejecucion
     printf("tiempo global: %lf segundos \n", duration);
-    cout << "Listo\n" << endl;
+    cout << "Listo_20\n" << endl;
     return 0;
 }
 

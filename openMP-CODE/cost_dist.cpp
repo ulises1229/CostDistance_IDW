@@ -5,27 +5,15 @@
 
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-float** Cost_dist::cost_distance(int inicio_x,int inicio_y,float **fricc, int m, int n, position array[],map<double,l_dist> &costos) {
+float** Cost_dist::cost_distance(int inicio_x,int inicio_y,float **fricc, int m, int n, position array[], map<double,l_dist> &costos, float **&map_cost) {
     int count = 0;
     int start = 0;
-    float**map_cost = new float*[m];
-    for(int i=0;i<m;i++)
-        map_cost[i] = new float[n];
-    for(int i=0;i<m;i++){
-        for(int j=0;j<n;j++){
-            map_cost[i][j]=1000000000000;
-            if(fricc[i][j] < 0.0){
-                map_cost[i][j]=-9999;
-            }
-        }
-    }
     for(int i=0;i<1;i++) {
         map_cost[inicio_y][inicio_x]=0;
         count = movimientos_init(inicio_x, inicio_y,0, fricc, m, n, array);
         raster_cost(array, map_cost, count,costos, start);
         //cout << costos.size() << endl;
     }
-
     for(int i=0; costos.size() > 1 ;i++){
         map<double,l_dist>::iterator it_1=costos.begin();
         count = movimientos(it_1->second.x, it_1->second.y,it_1->second.costo, fricc, m, n, array);
