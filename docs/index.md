@@ -1,37 +1,50 @@
-## Welcome to GitHub Pages
+# CostDistance_IDW
+This repository contains the sorce code of Cost Distance and IDW  algorithms
 
-You can use the [editor on GitHub](https://github.com/ulises1229/CostDistance_IDW/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### Instalation gdal Windows CLion
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Use MSYS2 (msys2.org). 
 
-```markdown
-Syntax highlighted code block
+Install MSYS2 and follow the tutorial on their website (pacman -Syu, pacman -Su).
 
-# Header 1
-## Header 2
-### Header 3
+Then use the command (pacman -S mingw-w64-x86_64-toolchain) 
+you need to install Cmake and link to clion
 
-- Bulleted
-- List
+First run the command (pacman -S mingw-w64-x86_64-cmake) in the msys2 prompt
 
-1. Numbered
-2. List
+Sencondly configure the Clion, In clion go to FILE -> SETTINGS -> Build, Execution, Deployment -> TOOLCHAINS ->
+In the option enviroment apears a link, change for (your disk):/msys64/mingw64 (you can install msys2 in another disk diferent where you install clion)
+In cmake apears a link, change it for (your disk):\msys64\mingw64\bin\cmake.exe for example D:\msys64\mingw64\bin\cmake.exe "D" is where I install all packages
+then the others spaces like c compiler change theirs links.
+  
+Install Gdal
 
-**Bold** and _Italic_ and `Code` text
+Then using pacman in the msys2 command prompt, get the MingW (pacman -S mingw-w64-x86_64-gcc) and GDAL (pacman -S mingw-w64-x86_64-gdal).
+check if gdal is installed with te following command, you should be in the root, use the comand -pwd, and you see where you are /user name/home go to /
+then use the comand  (pacman -Qo gdal) to find gdal.
 
-[Link](url) and ![Image](src)
+### Link Gdal to Cmake 
+
+#### CMakelists 
+
+you need to put the following in your cmake list and do the changes in the links
 ```
+cmake_minimum_required(VERSION 3.13)
+project(cost_distance)
+add_compile_options(-std=c++11)
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+set(CMAKE_CXX_STANDARD 14)
+set(DCMAKE_SH="CMAKE_SH-NOTFOUND")
+set(SOURCE_FILES main.cpp)
 
-### Jekyll Themes
+include_directories( include  D:/msys64/mingw64/include)  # D is the disk where You Install MSYS2
+set(GDAL_LIBRARY+="D:/msys64//mingw64/lib/libgdal.dll.a")  # Wrere you install the lib
+set(GDAL_INCLUDE_DIR+=" D:/msys64/mingw64/include")
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ulises1229/CostDistance_IDW/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+add_executable(cost_distance main.cpp raster.cpp raster.h raster_cost_dist.cpp raster_cost_dist.h)
+#Specify GDAL libraries to link your cpp executable target against
+target_link_libraries(cost_distance D:/msys64//mingw64/lib/libgdal.dll.a)
+target_link_directories(cost_distance PUBLIC D:/msys64/mingw64/include)
+```
