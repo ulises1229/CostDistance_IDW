@@ -40,7 +40,7 @@ set(DCMAKE_SH="CMAKE_SH-NOTFOUND")
 set(SOURCE_FILES main.cpp)
 
 include_directories( include  D:/msys64/mingw64/include)  # D is the disk where You Install MSYS2
-set(GDAL_LIBRARY+="D:/msys64//mingw64/lib/libgdal.dll.a")  # Wrere you install the lib
+set(GDAL_LIBRARY+="D:/msys64//mingw64/lib/libgdal.dll.a")  # Where you install the lib
 set(GDAL_INCLUDE_DIR+=" D:/msys64/mingw64/include")
 
 add_executable(cost_distance main.cpp raster.cpp raster.h raster_cost_dist.cpp raster_cost_dist.h)
