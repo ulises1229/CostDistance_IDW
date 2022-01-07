@@ -101,8 +101,7 @@ void Raster::carga_requisitos(string name,map <int, float> &req_map){
     getline(buffer,key,',');
     getline(buffer, val, '\n');
     cont=no_row(name);
-    cont--;
-    while(cont>0) {
+    while(cont>1) {
         getline(buffer,key,',');
         getline(buffer, val, '\n');
         req_map.insert(pair<int, float>(atof(key.c_str()),atof(val.c_str())));//se guarda en el mapa, el no. de localidad como llave y el requisito de biomasa

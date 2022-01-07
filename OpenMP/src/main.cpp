@@ -31,14 +31,14 @@ int main() {
     std::map<int, float>::iterator biomass; //iterados mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/sperez/modelos/Kenia/general/fricc_singeo0.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/uolivares/IDW/fricc_w.tif", rows, cols, scale, cell_null);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/sperez/modelos/Kenia/40_comunidades/locs_40_int.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/uolivares/IDW/locs_c.tif", rows, cols, scale,cell_null);
     //obtenemos el numero de comunidades
     num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
     //---------------------guardamos los requisitos de las comunidades en un mapa
-    objrast.carga_requisitos("/home/sperez/modelos/Kenia/40_comunidades/fwuse_40.csv", biomass_requerida);
+    objrast.carga_requisitos("/home/uolivares/IDW/fwuse_W01.csv", biomass_requerida);
 
     // guardamos las localidades en un mapa para ordenarlas
     objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
