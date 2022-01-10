@@ -8,7 +8,7 @@ public:
         int num_local;
     }local;
 
-    float* read_tif_matrix(string name,int &rows, int &cols, int &scale,int &cell_null);
+    float* read_tif_matrix(string name,int &rows, int &cols, float &scale,int &cell_null);
 
     void print_raster(float *matrix, int rows, int cols);
     int contar_comunidades(float *mapa_local, int rows, int cols,int cell_null);

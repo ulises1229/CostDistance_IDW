@@ -13,7 +13,7 @@ int main() {
     int rows, cols;//tamaño matriz
     //int row,col;//iteradores matriz
     int cell_null;//valor nulo mapa
-    int scale;//escala del mapa
+    float scale;//escala del mapa
     int num_com;//numero de localidades en el mapa
     float exp = 1.005;//exponente IDW
     int cont = 0;//numero de localidades a explorar en el ciclo while
@@ -32,6 +32,7 @@ int main() {
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
     fric_matrix = objrast.read_tif_matrix("/home/uolivares/IDW/fricc_w.tif", rows, cols, scale, cell_null);
+    //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
     localidad_matrix = objrast.read_tif_matrix("/home/uolivares/IDW/locs_c.tif", rows, cols, scale,cell_null);
@@ -48,7 +49,7 @@ int main() {
     //-------------------------------------------------------------------------------------------------------inicia calculo modelos
     biomass = biomass_requerida.begin();
     int start =int(biomass->first);
-    biomass = biomass_requerida.end();
+    biomass = --biomass_requerida.end();
     int end =int(biomass->first);
 
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
@@ -85,10 +86,10 @@ int main() {
                             col_temp = mov[0][h - 1] + inicial.col;
                             if (row_temp < rows && row_temp >= 0 && col_temp < cols && col_temp >= 0 && fric_matrix[(cols*row_temp)+col_temp]>0.0) {
                                 if (h % 2 != 0){//si es un movimiento lateral
-                                    array.val_fricc = inicial.val_fricc + (fric_matrix[(cols * row_temp) + col_temp]);
+                                    array.val_fricc = (inicial.val_fricc) + ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                 }else {//si es un movimiento diagonal
                                     array.val_fricc =
-                                            inicial.val_fricc + sqrt(2) * (fric_matrix[(cols * row_temp) + col_temp]);
+                                            (inicial.val_fricc) + sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                 }//se busca el menor valor de CD, es posible que se escriba varias veces en una celda
                                 if (CD_matrix[(cols*row_temp)+col_temp]>array.val_fricc) {
                                     array.row = row_temp;

@@ -23,7 +23,7 @@ void metodos::IDW_test(float req, float *cost_dist, float *&IDW, int rows, int c
 }
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-float* metodos::cost_distance(float *fric_matrix, int rows, int cols, position array, float *CD_matrix) {
+float* metodos::cost_distance(float *fric_matrix, int rows, int cols, position array, float *CD_matrix, float scale) {
     priority_queue<position> CD_costos;
     int key = 1;
     int row_temp,col_temp,i;
