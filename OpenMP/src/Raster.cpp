@@ -7,7 +7,7 @@
 
 double adfGeoTransform[6];
 //-------------------------------------------------------------------------------------------------------------------------
-float* Raster::read_tif_matrix(std::string file,int &rows, int &cols, int &scale,int &cell_null){
+float* Raster::read_tif_matrix(std::string file,int &rows, int &cols, float &scale,int &cell_null){
     int row,col;//iteradores matriz
     GDALDataset *dataset;
     GDALAllRegister();
