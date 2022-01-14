@@ -123,6 +123,7 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
     // set raster projection
     poDstDS->SetProjection(projection);
 
+    
     GDALRasterBand *poBand;
     float *pBuf = new float[rows * cols], maxVal = 0;
     for(row= 0; row < rows; row++) {
