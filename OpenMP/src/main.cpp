@@ -126,7 +126,7 @@ int main() {
         IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = cell_null;
         ubicacion++;
     }
-    objrast.matrix_to_tiff(IDW_matrix, rows, cols,end,"IDW_SIN_8_");//crea tiff de IDW de todas las localidades calculadas
+    objrast.matrix_to_tiff(IDW_matrix, rows, cols,end,"IDW_C++");//crea tiff de IDW de todas las localidades calculadas
     end2 = omp_get_wtime();
     double duration = (end2 - start2);//calcula tiempo de ejecucion
     //-----------liberar memoria

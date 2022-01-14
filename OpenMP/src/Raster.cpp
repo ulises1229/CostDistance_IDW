@@ -18,6 +18,8 @@ float* Raster::read_tif_matrix(std::string file,int &rows, int &cols, float &sca
     poBand = dataset->GetRasterBand(1);
     dataset->GetGeoTransform( adfGeoTransform );
 
+    projection = dataset->GetProjectionRef();
+
     cols = poBand->GetXSize();
     rows= poBand->GetYSize();
     scale = adfGeoTransform[1];
@@ -118,6 +120,8 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
     //cout << fileName << endl;
     poDriver = GetGDALDriverManager()->GetDriverByName("Gtiff");
     poDstDS = poDriver->Create( fileName.c_str(), cols, rows, 1, GDT_Float32, NULL);
+    // set raster projection
+    poDstDS->SetProjection(projection);
 
     GDALRasterBand *poBand;
     float *pBuf = new float[rows * cols], maxVal = 0;

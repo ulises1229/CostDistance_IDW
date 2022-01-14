@@ -18,5 +18,5 @@ public:
     void matrix_to_tiff(float *output_raster, int rows, int cols, int count, string name);
 
 private:
-
+    const char *projection;
 };
