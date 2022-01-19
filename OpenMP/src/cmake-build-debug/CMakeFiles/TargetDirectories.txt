@@ -1,3 +1,0 @@
-/tmp/tmp.j2nJ2OCTrl/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/tmp/tmp.j2nJ2OCTrl/cmake-build-debug/CMakeFiles/IDW_OpenMP.dir
-/tmp/tmp.j2nJ2OCTrl/cmake-build-debug/CMakeFiles/edit_cache.dir

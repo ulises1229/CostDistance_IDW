@@ -31,15 +31,15 @@ int main() {
     std::map<int, float>::iterator biomass; //iterados mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/uolivares/IDW/fricc_w.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/fricc_w.tif", rows, cols, scale, cell_null);
     //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/uolivares/IDW/locs_c.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/locs_c.tif", rows, cols, scale,cell_null);
     //obtenemos el numero de comunidades
     num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
     //---------------------guardamos los requisitos de las comunidades en un mapa
-    objrast.carga_requisitos("/home/uolivares/IDW/fwuse_W01.csv", biomass_requerida);
+    objrast.carga_requisitos("/home/ulises/Kenya_full/fwuse_201.csv", biomass_requerida);
 
     // guardamos las localidades en un mapa para ordenarlas
     objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
@@ -53,7 +53,7 @@ int main() {
     int end =int(biomass->first);
 
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
-    //omp_set_num_threads(10);
+    omp_set_num_threads(4);
     #pragma omp parallel for default(shared) private(ubicacion,biomass,array)
     for(i=start;i<=end;i++) {
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?

@@ -1,1 +1,0 @@
-/usr/bin/g++  -std=c++14 -fopenmp -O3 -DNDEBUG CMakeFiles/IDW_OpenMP.dir/main.cpp.o CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o -o IDW_OpenMP  -lgdal 
