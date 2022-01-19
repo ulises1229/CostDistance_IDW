@@ -1,12 +1,16 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/tmp/tmp.j2nJ2OCTrl/Metodos.cpp" "/tmp/tmp.j2nJ2OCTrl/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o"
-  "/tmp/tmp.j2nJ2OCTrl/Raster.cpp" "/tmp/tmp.j2nJ2OCTrl/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o"
-  "/tmp/tmp.j2nJ2OCTrl/main.cpp" "/tmp/tmp.j2nJ2OCTrl/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/main.cpp.o"
+  "/tmp/tmp.DDgOhPIOFp/Metodos.cpp" "/tmp/tmp.DDgOhPIOFp/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o"
+  "/tmp/tmp.DDgOhPIOFp/Raster.cpp" "/tmp/tmp.DDgOhPIOFp/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o"
+  "/tmp/tmp.DDgOhPIOFp/main.cpp" "/tmp/tmp.DDgOhPIOFp/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -14,6 +18,10 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "../gdal"
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
   )
 
 # Targets to which this target links.

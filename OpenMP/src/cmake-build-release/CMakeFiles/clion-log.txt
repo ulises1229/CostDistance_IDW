@@ -1,4 +1,5 @@
-/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" /tmp/tmp.j2nJ2OCTrl
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /tmp/tmp.DDgOhPIOFp
+-- Found GDAL: /usr/lib64/libgdal.so (found version "3.0.4") 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /tmp/tmp.j2nJ2OCTrl/cmake-build-release
+-- Build files have been written to: /tmp/tmp.DDgOhPIOFp/cmake-build-release
