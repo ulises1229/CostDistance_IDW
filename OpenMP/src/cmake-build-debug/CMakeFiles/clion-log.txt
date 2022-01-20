@@ -1,4 +1,4 @@
-/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" /tmp/tmp.j2nJ2OCTrl
--- Configuring done
--- Generating done
--- Build files have been written to: /tmp/tmp.j2nJ2OCTrl/cmake-build-debug
+Cannot generate into /Users/ulises/Documents/GitHub/CostDistance_IDW/OpenMP/src/cmake-build-debug
+It is already used for project /tmp/tmp.j2nJ2OCTrl
+
+Please either delete it manually or select another generation directory

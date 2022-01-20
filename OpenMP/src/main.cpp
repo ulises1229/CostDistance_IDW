@@ -53,7 +53,7 @@ int main() {
     int end =int(biomass->first);
 
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
-    omp_set_num_threads(2);
+    //omp_set_num_threads(1);
     #pragma omp parallel for default(shared) private(ubicacion,biomass,array)
     for(i=start;i<=end;i++) {
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
@@ -72,6 +72,7 @@ int main() {
                     priority_queue<position> CD_costos;
                     int key = 1;
                     int row_temp,col_temp,h;
+                    // Init Costos with infinite numbers
                     for(row_temp=0;row_temp<rows;row_temp++)
                         for(col_temp=0;col_temp<cols;col_temp++)
                             CD_matrix[(cols*row_temp)+col_temp]=std::numeric_limits<float>::max();
@@ -116,6 +117,8 @@ int main() {
                             }
                         }
                     }
+                    delete CD_matrix;
+                    //free array;
                 }
             }
         }
