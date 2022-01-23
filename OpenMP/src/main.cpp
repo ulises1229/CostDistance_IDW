@@ -113,6 +113,7 @@ int main() {
                             if (CD_matrix[(cols * row) + col] <= 0) {
                                 IDW_matrix[(cols * row) + col] = cell_null;
                             } else {
+                                #pragma omp atomic
                                 IDW_matrix[(cols * row) + col] += biomass->second / pow(CD_matrix[(cols * row) + col], exp);
                             }
                         }
