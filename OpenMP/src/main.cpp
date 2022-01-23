@@ -122,6 +122,7 @@ int main() {
                 }
             }
         }
+        //cout << "Finished" << i << " th locality" <<endl;
     }
     // ---------------agregar valores nulos en la ubicacion de las localidade
     ubicacion = localidades.begin();

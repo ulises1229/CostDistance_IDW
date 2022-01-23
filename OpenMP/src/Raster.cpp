@@ -80,6 +80,7 @@ void Raster::leer_localidades(float *map_local,int rows, int cols, map<int,local
             }
         }
     }
+    cout<< "Total number of localities: " << local_1 <<endl;
 }
 //-------------------------------------------------------------------------------------------------------------------------
 int Raster::no_row(string name){
