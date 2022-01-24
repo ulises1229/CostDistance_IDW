@@ -67,7 +67,7 @@ int Raster::contar_comunidades(float *mapa_local, int rows, int cols,int cell_nu
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
-void Raster::leer_localidades(float *map_local,int rows, int cols, map<int,local> &local_ord,int cell_null,int num_local) {
+int Raster::leer_localidades(float *map_local,int rows, int cols, map<int,local> &local_ord,int cell_null,int num_local) {
     local array;
     int local_1=0;
     for(int row=0;row<rows;row++){
@@ -80,7 +80,7 @@ void Raster::leer_localidades(float *map_local,int rows, int cols, map<int,local
             }
         }
     }
-    cout<< "Total number of localities: " << local_1 <<endl;
+    return local_1;
 }
 //-------------------------------------------------------------------------------------------------------------------------
 int Raster::no_row(string name){

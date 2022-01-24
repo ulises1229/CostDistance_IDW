@@ -42,7 +42,7 @@ int main() {
     objrast.carga_requisitos("/home/ulises/Kenya_full/fwuse_W01.csv", biomass_requerida);
 
     // guardamos las localidades en un mapa para ordenarlas
-    objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
+    int numLoc = objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
     //valores iniciales
     IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
 
@@ -72,16 +72,22 @@ int main() {
                     priority_queue<position> CD_costos;
                     int key = 1;
                     int row_temp,col_temp,h;
+                    // FIXME:  use memset insead
                     // Init Costos with infinite numbers
                     for(row_temp=0;row_temp<rows;row_temp++)
                         for(col_temp=0;col_temp<cols;col_temp++)
                             CD_matrix[(cols*row_temp)+col_temp]=std::numeric_limits<float>::max();
+
                     position inicial;
                     CD_costos.push(array);
                     //---------------------------------------------------------------inicia calculo
-                    while(!CD_costos.empty()){
+                    float cummulatedCost = 0.0;
+                    //while(!CD_costos.empty() | )
+                    // Limit CD calculation
+                    while(cummulatedCost< (120*10000)  && !CD_costos.empty()){
                         inicial=CD_costos.top();
                         CD_costos.pop();
+                        // Calculate cost of all neighbours
                         for(h=1;h<9;h++){
                             row_temp = mov[1][h - 1] + inicial.row;
                             col_temp = mov[0][h - 1] + inicial.col;
@@ -98,10 +104,12 @@ int main() {
                                     array.key=key;
                                     key++;
                                     CD_matrix[(cols*row_temp)+col_temp] = array.val_fricc;
+
                                     CD_costos.push(array);
                                 }
                             }
                         }
+                        cummulatedCost+=CD_matrix[(cols*row_temp)+col_temp];
                     }
                     //objrast.matrix_to_tiff(CD_matrix, rows, cols,cont,"CD_");
                     //cout<<"costo distancia "<<i<< " calculado"<<endl;
@@ -131,7 +139,7 @@ int main() {
         IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = cell_null;
         ubicacion++;
     }
-    objrast.matrix_to_tiff(IDW_matrix, rows, cols,end,"IDW_C++");//crea tiff de IDW de todas las localidades calculadas
+    objrast.matrix_to_tiff(IDW_matrix, rows, cols,numLoc,"IDW_C++_limit_CD");//crea tiff de IDW de todas las localidades calculadas
     end2 = omp_get_wtime();
     double duration = (end2 - start2);//calcula tiempo de ejecucion
     //-----------liberar memoria
