@@ -28,18 +28,18 @@ int main() {
     //estructura local contiene el no. de comunidad y su (x,y)
     std::map<int, Raster::local>::iterator ubicacion; //iterados mapa ubicacion localidades
     map<int, float> biomass_requerida;//mapa requisitos de localidades
-    std::map<int, float>::iterator biomass; //iterados mapa requisitos localidad
+    std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/fricc_w.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/IDW/fricc_w.tif", rows, cols, scale, cell_null);
     //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/locs_c.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/ulises/IDW/locs_c.tif", rows, cols, scale,cell_null);
     //obtenemos el numero de comunidades
     num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
     //---------------------guardamos los requisitos de las comunidades en un mapa
-    objrast.carga_requisitos("/home/ulises/Kenya_full/fwuse_W01.csv", biomass_requerida);
+    objrast.carga_requisitos("/home/ulises/IDW/fwuse_W01.csv", biomass_requerida);
 
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
@@ -53,8 +53,9 @@ int main() {
     int end =int(biomass->first);
 
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
+    float cummulatedTime = 0.0;
     //omp_set_num_threads(1);
-    #pragma omp parallel for default(shared) private(ubicacion,biomass,array)
+    #pragma omp parallel for private(ubicacion,biomass,array) firstprivate(cummulatedTime)
     for(i=start;i<=end;i++) {
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
             biomass = biomass_requerida.find(i);
@@ -81,10 +82,12 @@ int main() {
                     position inicial;
                     CD_costos.push(array);
                     //---------------------------------------------------------------inicia calculo
-                    float cummulatedCost = 0.0;
+
                     //while(!CD_costos.empty() | )
                     // Limit CD calculation
-                    while(cummulatedCost< (120*10000)  && !CD_costos.empty()){
+                    float tmpCost = 0.0;
+                    float timeLimit = 24 * 3600; // 24 hours
+                    while(tmpCost <= timeLimit  && !CD_costos.empty()){
                         inicial=CD_costos.top();
                         CD_costos.pop();
                         // Calculate cost of all neighbours
@@ -104,13 +107,14 @@ int main() {
                                     array.key=key;
                                     key++;
                                     CD_matrix[(cols*row_temp)+col_temp] = array.val_fricc;
-
+                                    tmpCost = CD_matrix[(cols*row_temp)+col_temp];
                                     CD_costos.push(array);
                                 }
                             }
                         }
-                        cummulatedCost+=CD_matrix[(cols*row_temp)+col_temp];
+                        cummulatedTime += tmpCost;
                     }
+
                     //objrast.matrix_to_tiff(CD_matrix, rows, cols,cont,"CD_");
                     //cout<<"costo distancia "<<i<< " calculado"<<endl;
                     //IDW_matrix_tmp=objMeth.IDW_test(biomass->second, CD_matrix, IDW_matrix_tmp, rows, cols, exp, cell_null);

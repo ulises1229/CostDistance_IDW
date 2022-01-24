@@ -1,4 +1,4 @@
-Cannot generate into /Users/ulises/Documents/GitHub/CostDistance_IDW/OpenMP/src/cmake-build-release
-This directory is already used for 'Release (1)' profile
-
-Please either delete it manually or select another generation directory
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /tmp/tmp.DDgOhPIOFp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/tmp.DDgOhPIOFp/cmake-build-release
