@@ -70,7 +70,7 @@ int Raster::contar_comunidades(float *mapa_local, int rows, int cols,int cell_nu
 int Raster::leer_localidades(float *map_local,int rows, int cols, map<int,local> &local_ord,int cell_null,int num_local) {
     local array;
     int local_1=0;
-    for(int row=0;row<rows;row++){
+    for(int row=0;row<2;row++){
         for(int col=0;col<cols;col++){
             if(map_local[(cols*row)+col]  != cell_null) {
                 array.row = row;
