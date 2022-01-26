@@ -23,6 +23,7 @@ int main() {
     float* fric_matrix; //mapa friccion
     float* localidad_matrix;//mapa con localidades (ubicacion)
     float* IDW_matrix;
+    int tmpNull;
 // ------------------------------------------------------------------------mapas
     map<int, Raster::local> localidades;// mapa ubicacion localidades
     //estructura local contiene el no. de comunidad y su (x,y)
@@ -31,18 +32,23 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/IDW/fricc_w.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/fricc_w.tif", rows, cols, scale, cell_null);
+    tmpNull = cell_null;
+    //cout << "Cell_null"<< tmpNull << endl;
     //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/ulises/IDW/locs_c.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/locs_c.tif", rows, cols, scale,cell_null);
     //obtenemos el numero de comunidades
     num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
     //---------------------guardamos los requisitos de las comunidades en un mapa
-    objrast.carga_requisitos("/home/ulises/IDW/fwuse_W01.csv", biomass_requerida);
+    objrast.carga_requisitos("/home/ulises/Kenya_full/fwuse_W01.csv", biomass_requerida);
 
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
+    cell_null = tmpNull;
+    //cout << "Cell_null"<< cell_null << endl;
+    cout << "Total number of localities "<< numLoc << endl;
     //valores iniciales
     IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
 
@@ -57,6 +63,7 @@ int main() {
     //omp_set_num_threads(1);
     #pragma omp parallel for private(ubicacion,biomass,array) firstprivate(cummulatedTime)
     for(i=start;i<=end;i++) {
+        int iteration = 0;
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
             biomass = biomass_requerida.find(i);
             if (biomass->second != 0) {//requisitos distintos a cero
@@ -87,8 +94,14 @@ int main() {
                     // Limit CD calculation
                     float tmpCost = 0.0;
                     float timeLimit = 24 * 3600; // 24 hours
-                    while(tmpCost <= timeLimit  && !CD_costos.empty()){
+                    while(cummulatedTime <= timeLimit  && !CD_costos.empty()){
                         inicial=CD_costos.top();
+
+                        //cout << "fricc" << inicial.val_fricc << endl;
+                        iteration++;
+                        cummulatedTime += (inicial.single_fricc / scale);
+                        //cout<< "iteration: " << iteration << " single_fricc " << (inicial.single_fricc/scale) << " Cummulated " << cummulatedTime << endl;
+                        //cout << "Iter: " << iteration << " Current: " <<  fric_matrix[(inicial.col*inicial.row)+inicial.col] << " Cummulated Time: " << cummulatedTime <<endl;
                         CD_costos.pop();
                         // Calculate cost of all neighbours
                         for(h=1;h<9;h++){
@@ -97,23 +110,26 @@ int main() {
                             if (row_temp < rows && row_temp >= 0 && col_temp < cols && col_temp >= 0 && fric_matrix[(cols*row_temp)+col_temp]>0.0) {
                                 if (h % 2 != 0){//si es un movimiento lateral
                                     array.val_fricc = (inicial.val_fricc) + ((fric_matrix[(cols * row_temp) + col_temp])*scale);
+                                    array.single_fricc = ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                 }else {//si es un movimiento diagonal
-                                    array.val_fricc =
-                                            (inicial.val_fricc) + sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
+                                    array.val_fricc = (inicial.val_fricc) + sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
+                                    array.single_fricc =  sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                 }//se busca el menor valor de CD, es posible que se escriba varias veces en una celda
-                                if (CD_matrix[(cols*row_temp)+col_temp]>array.val_fricc) {
+                                if (CD_matrix[(cols*row_temp)+col_temp]>array.val_fricc ) {
                                     array.row = row_temp;
                                     array.col = col_temp;
                                     array.key=key;
                                     key++;
                                     CD_matrix[(cols*row_temp)+col_temp] = array.val_fricc;
-                                    tmpCost = CD_matrix[(cols*row_temp)+col_temp];
+                                    //tmpCost = CD_matrix[(cols*row_temp)+col_temp];
                                     CD_costos.push(array);
                                 }
                             }
                         }
-                        cummulatedTime += tmpCost;
+                        //cummulatedTime += tmpCost;
+                        //cout << "Tmp cost: "<< tmpCost << endl;
                     }
+                    //cout<< "costos size: " << CD_costos.size() << endl;
 
                     //objrast.matrix_to_tiff(CD_matrix, rows, cols,cont,"CD_");
                     //cout<<"costo distancia "<<i<< " calculado"<<endl;
