@@ -20,6 +20,8 @@ int main() {
     int cont = 0;//numero de localidades a explorar en el ciclo while
     position array; //almacenar movimientos de CD
     int i;
+    vector<pair<string, vector<float>>> demmand;// Vector to store demand of all years
+
 // ------------------------------------------------------------------------matrices
     float* fric_matrix; //mapa friccion
     float* localidad_matrix;//mapa con localidades (ubicacion)
@@ -33,17 +35,24 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/fricc_w.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_w.tif", rows, cols, scale, cell_null);
     tmpNull = cell_null;
     //cout << "Cell_null"<< tmpNull << endl;
     //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_full/locs_c.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/locs_c.tif", rows, cols, scale,cell_null);
     //obtenemos el numero de comunidades
     num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
     //---------------------guardamos los requisitos de las comunidades en un mapa
-    objrast.carga_requisitos("/home/ulises/Kenya_full/fwuse_W01.csv", biomass_requerida);
+
+    // Load demmnad from multiple years
+    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_walking.csv");
+
+
+    //objrast.carga_requisitos("/home/ulises/Kenya_95PoP/fwuse_W01.csv", biomass_requerida);
+
+
 
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
