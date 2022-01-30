@@ -2,6 +2,9 @@
 // Created by otavio on 05/03/20.
 //
 #include "Raster.h"
+#include <sstream>
+#include <iostream>
+#include <fstream>
 
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -85,24 +88,6 @@ int Raster::readLocalities(float *map_local, int rows, int cols, map<int,local> 
     return countLoc;
 }
 
-/*int readMultipleLocalities(float *map_local, int rows, int cols, map<int,local> &local_ord, int cell_null, int num_local){
-    local array;
-    int countLoc=0;
-    for(int row=0;row<rows;row++){
-        for(int col=0;col<cols;col++){
-            if(map_local[(cols*row)+col]  != cell_null) {
-                //if (countLoc == 1)
-                //    break;
-                array.row = row;
-                array.col = col;
-                local_ord[(int)map_local[(cols*row)+col]] = array;
-                countLoc ++ ;
-            }
-        }
-    }
-    return countLoc;
-}*/
-
 //-------------------------------------------------------------------------------------------------------------------------
 int Raster::no_row(string name){
     int counter = 0;
@@ -112,25 +97,83 @@ int Raster::no_row(string name){
         counter++;
     return counter;
 }
-//-------------------------------------------------------------------------------------------------------------------------
-void Raster::carga_requisitos(string name,map <int, float> &req_map){
 
-    int cont;
-    ifstream file(name.c_str());
-    stringstream buffer;
-    buffer << file.rdbuf();
-    string key;
-    string val;
-    //no nos interesa cargar los titulos de la tabla
-    getline(buffer,key,',');
-    getline(buffer, val, '\n');
-    cont=no_row(name);
-    while(cont>1) {
-        getline(buffer,key,',');
-        getline(buffer, val, '\n');
-        req_map.insert(pair<int, float>(atof(key.c_str()),atof(val.c_str())));//se guarda en el mapa, el no. de localidad como llave y el requisito de biomasa
-        cont--;
+
+
+string Raster::readFileIntoString(const string& path) {
+    auto ss = ostringstream{};
+    ifstream input_file(path);
+    if (!input_file.is_open()) {
+        cerr << "Could not open the file - '"
+             << path << "'" << endl;
+        exit(EXIT_FAILURE);
     }
+    ss << input_file.rdbuf();
+    return ss.str();
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------
+vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
+
+
+    vector<pair<string, vector<float>>> result;
+
+
+    // Create an input filestream
+    std::ifstream myFile(name);
+
+    // Make sure the file is open
+    if(!myFile.is_open()) throw runtime_error("Could not open file");
+
+    // Helper vars
+    string line, colname;
+    int val;
+
+    // Read the column names
+    if(myFile.good())
+    {
+        // Extract the first line in the file
+        getline(myFile, line);
+
+        // Create a stringstream from line
+        stringstream ss(line);
+
+        // Extract each column name
+        while(getline(ss, colname, ',')){
+
+            // Initialize and add <colname, int vector> pairs to result
+            result.push_back({colname, vector<float> {}});
+        }
+    }
+
+    // Read data, line by line
+    while(getline(myFile, line))
+    {
+        // Create a stringstream of the current line
+        stringstream ss(line);
+
+        // Keep track of the current column index
+        int colIdx = 0;
+
+        // Extract each integer
+        while(ss >> val){
+
+            // Add the current integer to the 'colIdx' column's values vector
+            result.at(colIdx).second.push_back(val);
+
+            // If the next token is a comma, ignore it and move on
+            if(ss.peek() == ',') ss.ignore();
+
+            // Increment the column index
+            colIdx++;
+        }
+    }
+
+    // Close file
+    myFile.close();
+
+    return result;
 }
 //-------------------------------------------------------------------------------------------------------------------------
 void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,string name) {

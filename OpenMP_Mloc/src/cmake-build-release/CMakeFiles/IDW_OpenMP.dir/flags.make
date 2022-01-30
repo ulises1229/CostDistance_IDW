@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/tmp/tmp.DDgOhPIOFp/include -I/tmp/tmp.DDgOhPIOFp/gdal
 
-CXX_FLAGS =  -std=c++14 -fopenmp -O3 -DNDEBUG -std=gnu++14
+CXX_FLAGS =  -std=c++14 -fopenmp -g -std=gnu++14
 

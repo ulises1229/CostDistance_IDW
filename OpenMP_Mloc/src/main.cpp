@@ -62,7 +62,7 @@ int main() {
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
 
     //omp_set_num_threads(1);
-    #pragma omp parallel for private(ubicacion,biomass,array)
+#pragma omp parallel for private(ubicacion,biomass,array)
     for(i=start;i<=end;i++) {
         //int iteration = 0;
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
@@ -162,4 +162,3 @@ int main() {
     printf("tiempo global: %lf segundos \n", duration);
     return 0;
 }
-
