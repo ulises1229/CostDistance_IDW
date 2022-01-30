@@ -67,20 +67,42 @@ int Raster::contar_comunidades(float *mapa_local, int rows, int cols,int cell_nu
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
-void Raster::leer_localidades(float *map_local,int rows, int cols, map<int,local> &local_ord,int cell_null,int num_local) {
+int Raster::readLocalities(float *map_local, int rows, int cols, map<int,local> &local_ord, int cell_null, int num_local) {
     local array;
-    int local_1=0;
+    int countLoc=0;
     for(int row=0;row<rows;row++){
         for(int col=0;col<cols;col++){
             if(map_local[(cols*row)+col]  != cell_null) {
+                //if (countLoc == 1)
+                //    break;
                 array.row = row;
                 array.col = col;
                 local_ord[(int)map_local[(cols*row)+col]] = array;
-                local_1 ++ ;
+                countLoc ++ ;
             }
         }
     }
+    return countLoc;
 }
+
+/*int readMultipleLocalities(float *map_local, int rows, int cols, map<int,local> &local_ord, int cell_null, int num_local){
+    local array;
+    int countLoc=0;
+    for(int row=0;row<rows;row++){
+        for(int col=0;col<cols;col++){
+            if(map_local[(cols*row)+col]  != cell_null) {
+                //if (countLoc == 1)
+                //    break;
+                array.row = row;
+                array.col = col;
+                local_ord[(int)map_local[(cols*row)+col]] = array;
+                countLoc ++ ;
+            }
+        }
+    }
+    return countLoc;
+}*/
+
 //-------------------------------------------------------------------------------------------------------------------------
 int Raster::no_row(string name){
     int counter = 0;
@@ -116,14 +138,17 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
     GDALDataset *poDstDS;
     GDALDriver *poDriver;
     OGRSpatialReference oSRS;
-    string fileName = name + to_string(count) + ".tif";
+    string proyeccion = "EPSG:21037";
+    string fileName = name + to_string(count) + "_NEW" + ".tif";
     //cout << fileName << endl;
     poDriver = GetGDALDriverManager()->GetDriverByName("Gtiff");
     poDstDS = poDriver->Create( fileName.c_str(), cols, rows, 1, GDT_Float32, NULL);
     // set raster projection
     poDstDS->SetProjection(projection);
+    poDstDS->SetGeoTransform(adfGeoTransform);
+    oSRS.SetWellKnownGeogCS(proyeccion.c_str());
+    //cout << "Projection: \n" << endl;
 
-    
     GDALRasterBand *poBand;
     float *pBuf = new float[rows * cols], maxVal = 0;
     for(row= 0; row < rows; row++) {

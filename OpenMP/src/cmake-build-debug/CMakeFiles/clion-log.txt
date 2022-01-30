@@ -1,4 +1,4 @@
-Cannot generate into /Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP/src/cmake-build-debug
+Cannot generate into /Users/ulises/Documents/GitHub/CostDistance_IDW/OpenMP/src/cmake-build-debug
 It is already used for project /tmp/tmp.j2nJ2OCTrl
 
 Please either delete it manually or select another generation directory
