@@ -6,9 +6,7 @@ CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o: \
  ../Metodos.h \
  ../common.h
 CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o: \
- ../Raster.cpp \
- ../Raster.h \
- ../common.h
+ ../Raster.cpp
 CMakeFiles/IDW_OpenMP.dir/main.cpp.o: \
  ../Metodos.h \
  ../Raster.h \
