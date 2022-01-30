@@ -1,6 +1,7 @@
 #include "common.h"
 #include "Metodos.h"
 #include "Raster.h"
+#include <array>
 int main() {
     std::string str;
     double start2;
@@ -45,7 +46,7 @@ int main() {
     objrast.carga_requisitos("/home/ulises/Kenya_full/fwuse_W01.csv", biomass_requerida);
 
     // guardamos las localidades en un mapa para ordenarlas
-    int numLoc = objrast.leer_localidades(localidad_matrix, rows, cols, localidades, cell_null, num_com);
+    int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
     cell_null = tmpNull;
     //cout << "Cell_null"<< cell_null << endl;
     cout << "Total number of localities "<< numLoc << endl;
@@ -59,11 +60,11 @@ int main() {
     int end =int(biomass->first);
 
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
-    float cummulatedTime = 0.0;
+
     //omp_set_num_threads(1);
-    #pragma omp parallel for private(ubicacion,biomass,array) firstprivate(cummulatedTime)
+    #pragma omp parallel for private(ubicacion,biomass,array)
     for(i=start;i<=end;i++) {
-        int iteration = 0;
+        //int iteration = 0;
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
             biomass = biomass_requerida.find(i);
             if (biomass->second != 0) {//requisitos distintos a cero
@@ -76,15 +77,13 @@ int main() {
                     array.key=0;
                     cont++;//localidades calculadas
                     float *CD_matrix = new float[rows*cols];
-                    //CD_matrix=objMeth.cost_distance(fric_matrix, rows, cols, array, CD_matrix);
+
+                    // Init CD_matrix with infinite values
+                    fill_n(CD_matrix, rows*cols, std::numeric_limits<float>::max());
+
                     priority_queue<position> CD_costos;
                     int key = 1;
                     int row_temp,col_temp,h;
-                    // FIXME:  use memset insead
-                    // Init Costos with infinite numbers
-                    for(row_temp=0;row_temp<rows;row_temp++)
-                        for(col_temp=0;col_temp<cols;col_temp++)
-                            CD_matrix[(cols*row_temp)+col_temp]=std::numeric_limits<float>::max();
 
                     position inicial;
                     CD_costos.push(array);
@@ -93,13 +92,12 @@ int main() {
                     //while(!CD_costos.empty() | )
                     // Limit CD calculation
                     float tmpCost = 0.0;
-                    float timeLimit = 24 * 3600; // 24 hours
-                    while(cummulatedTime <= timeLimit  && !CD_costos.empty()){
+                    float timeLimit = 12 * 3600; // 12 hours
+                    //while(cummulatedTime <= timeLimit  && !CD_costos.empty()){
+                    while(tmpCost<= timeLimit  && !CD_costos.empty()){
                         inicial=CD_costos.top();
-
-                        //cout << "fricc" << inicial.val_fricc << endl;
-                        iteration++;
-                        cummulatedTime += (inicial.single_fricc / scale);
+                        tmpCost = inicial.val_fricc;
+                        //iteration++;
                         //cout<< "iteration: " << iteration << " single_fricc " << (inicial.single_fricc/scale) << " Cummulated " << cummulatedTime << endl;
                         //cout << "Iter: " << iteration << " Current: " <<  fric_matrix[(inicial.col*inicial.row)+inicial.col] << " Cummulated Time: " << cummulatedTime <<endl;
                         CD_costos.pop();
@@ -110,10 +108,10 @@ int main() {
                             if (row_temp < rows && row_temp >= 0 && col_temp < cols && col_temp >= 0 && fric_matrix[(cols*row_temp)+col_temp]>0.0) {
                                 if (h % 2 != 0){//si es un movimiento lateral
                                     array.val_fricc = (inicial.val_fricc) + ((fric_matrix[(cols * row_temp) + col_temp])*scale);
-                                    array.single_fricc = ((fric_matrix[(cols * row_temp) + col_temp])*scale);
+                                    //array.single_fricc = ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                 }else {//si es un movimiento diagonal
                                     array.val_fricc = (inicial.val_fricc) + sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
-                                    array.single_fricc =  sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
+                                    //array.single_fricc =  sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                 }//se busca el menor valor de CD, es posible que se escriba varias veces en una celda
                                 if (CD_matrix[(cols*row_temp)+col_temp]>array.val_fricc ) {
                                     array.row = row_temp;
@@ -126,13 +124,7 @@ int main() {
                                 }
                             }
                         }
-                        //cummulatedTime += tmpCost;
-                        //cout << "Tmp cost: "<< tmpCost << endl;
                     }
-                    //cout<< "costos size: " << CD_costos.size() << endl;
-
-                    //objrast.matrix_to_tiff(CD_matrix, rows, cols,cont,"CD_");
-                    //cout<<"costo distancia "<<i<< " calculado"<<endl;
                     //IDW_matrix_tmp=objMeth.IDW_test(biomass->second, CD_matrix, IDW_matrix_tmp, rows, cols, exp, cell_null);
                     //---------------IDW
                     int row,col;
@@ -146,6 +138,7 @@ int main() {
                             }
                         }
                     }
+                    // Free memory on each iteration
                     delete CD_matrix;
                     //free array;
                 }

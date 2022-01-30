@@ -3,7 +3,6 @@ struct position{
     int row;
     int col;
     float val_fricc;
-    float single_fricc = 0;
     int key;
     bool operator<(const position& cell)const {
         if(val_fricc>cell.val_fricc)
