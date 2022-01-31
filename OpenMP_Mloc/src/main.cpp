@@ -48,9 +48,6 @@ int main() {
     // Load demmnad from multiple years
     demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_walking.csv");
 
-
-    //objrast.carga_requisitos("/home/ulises/Kenya_95PoP/fwuse_W01.csv", biomass_requerida);
-
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
     cell_null = tmpNull;
@@ -156,7 +153,6 @@ int main() {
                     }
                 }
             }
-
         }
         // ---------------agregar valores nulos en la ubicacion de las localidade
         ubicacion = localidades.begin();
@@ -167,18 +163,24 @@ int main() {
         objrast.matrix_to_tiff(IDW_matrix, rows, cols,numLoc,"IDW_C++_limit_CD" + demmand[year].first);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
-        delete IDW_matrix;
-        delete fric_matrix;
-        delete localidad_matrix;
+
+        //IDW_matrix.clear();
+
+
 
         // clear requirements
         biomass_requerida.clear();
 
         cout << "Year " << year << " finished!" <<endl;
     }
+
     end2 = omp_get_wtime();
     double duration = (end2 - start2);//calcula tiempo de ejecucion
     printf("tiempo global: %lf segundos \n", duration);
+
+    delete IDW_matrix;
+    delete fric_matrix;
+    delete localidad_matrix;
 
     return 0;
 }
