@@ -173,6 +173,8 @@ int main() {
 
         // clear requirements
         biomass_requerida.clear();
+
+        cout << "Year " << year << " finished!" <<endl;
     }
     end2 = omp_get_wtime();
     double duration = (end2 - start2);//calcula tiempo de ejecucion
