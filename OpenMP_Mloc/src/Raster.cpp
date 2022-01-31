@@ -160,7 +160,7 @@ vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
         while(ss >> val){
 
             // Add the current integer to the 'colIdx' column's values vector
-            result.at(colIdx).second.push_back(val);
+            result.at(colIdx).second.push_back(float(val));
 
             // If the next token is a comma, ignore it and move on
             if(ss.peek() == ',') ss.ignore();

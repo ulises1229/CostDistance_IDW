@@ -52,8 +52,6 @@ int main() {
 
     //objrast.carga_requisitos("/home/ulises/Kenya_95PoP/fwuse_W01.csv", biomass_requerida);
 
-
-
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
     cell_null = tmpNull;
@@ -62,16 +60,28 @@ int main() {
     //valores iniciales
     IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
 
+    // Iterate over demmand for each year
+    for(int year = 1; year<demmand.size()-1;year++){
+        //cout << "Year: " << year <<endl;
+        for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
+            biomass_requerida.insert(pair<int, float>(int(demmand[0].second[loc]),float(demmand[year].second[loc])));
+            //cout << "ID: " << demmand[0].second[loc] << " Demmand: " << demmand[year].second[loc] << endl;
+            //req_map.insert(pair<int, float>(atof(key.c_str()),atof(val.c_str())))
+        }
+    }
+
     //-------------------------------------------------------------------------------------------------------inicia calculo modelos
-    biomass = biomass_requerida.begin();
+    /*biomass = biomass_requerida.begin();
     int start =int(biomass->first);
     biomass = --biomass_requerida.end();
     int end =int(biomass->first);
 
     const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
 
+
+
     //omp_set_num_threads(1);
-#pragma omp parallel for private(ubicacion,biomass,array)
+    #pragma omp parallel for private(ubicacion,biomass,array)
     for(i=start;i<=end;i++) {
         //int iteration = 0;
         if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
@@ -168,6 +178,6 @@ int main() {
     delete IDW_matrix;
     delete fric_matrix;
     delete localidad_matrix;
-    printf("tiempo global: %lf segundos \n", duration);
+    printf("tiempo global: %lf segundos \n", duration);*/
     return 0;
 }
