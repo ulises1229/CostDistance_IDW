@@ -128,7 +128,7 @@ vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
 
     // Helper vars
     string line, colname;
-    int val;
+    float val;
 
     // Read the column names
     if(myFile.good())
@@ -182,7 +182,7 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
     GDALDriver *poDriver;
     OGRSpatialReference oSRS;
     string proyeccion = "EPSG:21037";
-    string fileName = name + to_string(count) + "_NEW" + ".tif";
+    string fileName = name + to_string(count)+ ".tif";
     //cout << fileName << endl;
     poDriver = GetGDALDriverManager()->GetDriverByName("Gtiff");
     poDstDS = poDriver->Create( fileName.c_str(), cols, rows, 1, GDT_Float32, NULL);
