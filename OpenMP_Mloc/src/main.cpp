@@ -161,7 +161,7 @@ int main() {
             IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = cell_null;
             ubicacion++;
         }
-        objrast.matrix_to_tiff(IDW_matrix, rows, cols,numLoc,"IDW_C++_limit_CD" + demmand[year].first);//crea tiff de IDW de todas las localidades calculadas
+        objrast.matrix_to_tiff(IDW_matrix, rows, cols,numLoc,"IDW_C++_" + demmand[year].first);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
 

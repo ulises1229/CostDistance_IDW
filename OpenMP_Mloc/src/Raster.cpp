@@ -182,7 +182,7 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
     GDALDriver *poDriver;
     OGRSpatialReference oSRS;
     string proyeccion = "EPSG:21037";
-    string fileName = name + to_string(count)+ ".tif";
+    string fileName = name + ".tif";
     //cout << fileName << endl;
     poDriver = GetGDALDriverManager()->GetDriverByName("Gtiff");
     poDstDS = poDriver->Create( fileName.c_str(), cols, rows, 1, GDT_Float32, NULL);
