@@ -34,7 +34,7 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_w.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_v.tif", rows, cols, scale, cell_null);
     tmpNull = cell_null;
     //cout << "Cell_null"<< tmpNull << endl;
     //printf("Raster scale: %lf \n", scale);
@@ -46,7 +46,7 @@ int main() {
     //---------------------guardamos los requisitos de las comunidades en un mapa
 
     // Load demmnad from multiple years
-    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_walking.csv");
+    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_vehicle.csv");
 
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
@@ -54,10 +54,11 @@ int main() {
     //cout << "Cell_null"<< cell_null << endl;
     cout << "Total number of localities "<< numLoc << endl;
     //valores iniciales
-    IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
+    //IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
     map<int, float> biomass_requerida;//mapa requisitos de localidades
     // Iterate over demmand for each year
-    for(int year = 1; year<demmand.size()-1;year++){
+    for(int year = 2; year<demmand.size()-1;year++){
+        IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
         // Use the same format than before
         for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
             biomass_requerida.insert(pair<int, float>(int(demmand[0].second[loc]),float(demmand[year].second[loc])));
