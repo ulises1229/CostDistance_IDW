@@ -57,7 +57,7 @@ int main() {
     //IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
     map<int, float> biomass_requerida;//mapa requisitos de localidades
     // Iterate over demmand for each year
-    for(int year = 2; year<demmand.size()-1;year++){
+    for(int year = 1; year<demmand.size()-1;year++){
         IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
         // Use the same format than before
         for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
