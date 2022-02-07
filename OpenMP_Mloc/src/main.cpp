@@ -1,7 +1,9 @@
 #include "common.h"
 #include "Metodos.h"
 #include "Raster.h"
-#include <array>
+#include <ctime>
+#include <chrono>
+
 int main() {
     std::string str;
     double start2;
@@ -34,7 +36,7 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_w.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_v.tif", rows, cols, scale, cell_null);
     tmpNull = cell_null;
     //cout << "Cell_null"<< tmpNull << endl;
     //printf("Raster scale: %lf \n", scale);
@@ -46,7 +48,7 @@ int main() {
     //---------------------guardamos los requisitos de las comunidades en un mapa
 
     // Load demmnad from multiple years
-    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_walking.csv");
+    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_vehicle.csv");
 
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
@@ -59,7 +61,12 @@ int main() {
     // Iterate over demmand for each year
     double locTimerStart, locTimerEnd;
 
-    for(int year = 31; year<=demmand.size()-1;year++){
+    //for(int year = 1; year<=demmand.size()-1;year++){
+    for(int year = 26; year<=demmand.size()-1;year++){
+        cout << "Processing year " << year << " ... " << endl;
+        auto givemetime = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        cout << "Started at: "<< givemetime << endl;
+        cout << ctime(&givemetime) << endl;
         locTimerStart = omp_get_wtime();
         IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
         // Use the same format than before
@@ -183,8 +190,9 @@ int main() {
     }
 
     end2 = omp_get_wtime();
-    double duration = (end2 - start2);//calcula tiempo de ejecucion
+    double duration = (end2 - start2);//calculate global execution time
     printf("Global time: %lf hours \n", (duration/3600));
+    cout << "Process sucessfully finished "<< endl;
 
     delete IDW_matrix;
     delete fric_matrix;

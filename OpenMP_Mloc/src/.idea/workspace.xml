@@ -63,11 +63,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="debug" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IDW_OpenMP" TARGET_NAME="IDW_OpenMP" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -113,7 +108,11 @@
       <workItem from="1643568463525" duration="9550000" />
       <workItem from="1643595758859" duration="1921000" />
       <workItem from="1643647306363" duration="1434000" />
-      <workItem from="1643776481418" duration="2889000" />
+      <workItem from="1643776481418" duration="3209000" />
+      <workItem from="1643810247903" duration="565000" />
+      <workItem from="1643816257780" duration="1613000" />
+      <workItem from="1643833878403" duration="1047000" />
+      <workItem from="1644264794387" duration="29000" />
     </task>
     <servers />
   </component>
@@ -137,17 +136,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>191</line>
+          <line>199</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>61</line>
+          <line>63</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>175</line>
+          <line>182</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
