@@ -36,19 +36,19 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_v.tif", rows, cols, scale, cell_null);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Haiti/fricc_v.tif", rows, cols, scale, cell_null);
     tmpNull = cell_null;
     //cout << "Cell_null"<< tmpNull << endl;
     //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/locs_c.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Haiti/locs_c.tif", rows, cols, scale,cell_null);
     //obtenemos el numero de comunidades
     num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
     //---------------------guardamos los requisitos de las comunidades en un mapa
 
     // Load demmnad from multiple years
-    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_vehicle.csv");
+    demmand = objrast.loadDemmand("/home/ulises/Haiti/fwuse_vehicle.csv");
 
     // guardamos las localidades en un mapa para ordenarlas
     int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
@@ -61,11 +61,11 @@ int main() {
     // Iterate over demmand for each year
     double locTimerStart, locTimerEnd;
 
-    //for(int year = 1; year<=demmand.size()-1;year++){
-    for(int year = 26; year<=demmand.size()-1;year++){
+    for(int year = 1; year<=demmand.size()-1;year++){
+    //for(int year = 26; year<=demmand.size()-1;year++){
         cout << "Processing year " << year << " ... " << endl;
         auto givemetime = chrono::system_clock::to_time_t(chrono::system_clock::now());
-        cout << "Started at: "<< givemetime << endl;
+        //cout << "Started at: "<< givemetime << endl;
         cout << ctime(&givemetime) << endl;
         locTimerStart = omp_get_wtime();
         IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
@@ -171,6 +171,7 @@ int main() {
             IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = cell_null;
             ubicacion++;
         }
+        cout<< "Name: " << demmand[year].first << endl;
         objrast.matrix_to_tiff(IDW_matrix, rows, cols,numLoc,"IDW_C++_" + demmand[year].first);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
