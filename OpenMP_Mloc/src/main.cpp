@@ -1,26 +1,29 @@
 #include "common.h"
-#include "Metodos.h"
+#include "Methods_IDW_CD.h"
 #include "Raster.h"
 #include <ctime>
 #include <chrono>
 
+using namespace std;
+
 int main() {
+    //Object creation
+    Raster objrast;
+    Methods objMeth;
+    //Variable definition and start timers
     std::string str;
     double start2;
     double end2;
     start2 = omp_get_wtime();
-    //------------------------------------------------------------------------objetos
-    Raster objrast;
-    metodos objMeth;
-//------------------------------------------------------------------------variables
-    int rows, cols;//tamaño matriz
-    //int row,col;//iteradores matriz
-    int cell_null;//valor nulo mapa
-    float scale;//escala del mapa
-    int num_com;//numero de localidades en el mapa
+
+    //------------------------------------------------------------------------variables
+    int rows, cols;// size of matrix
+    int nullValue;// null value
+    float scale;// map scale
+    int locsNum;// number of localities
     float exp = 1.005;//exponente IDW
-    int cont = 0;//numero de localidades a explorar en el ciclo while
-    position array; //almacenar movimientos de CD
+    int locCount = 0;// count localities
+    position array; //store movements in the matrix
     int i;
     vector<pair<string, vector<float>>> demmand;// Vector to store demand of all years
 
@@ -36,24 +39,24 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
     //---------------------mapa friccion
     //printf("----matriz friccion\n");
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/fricc_v.tif", rows, cols, scale, cell_null);
-    tmpNull = cell_null;
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/fricc_w.tif", rows, cols, scale, nullValue);
+    tmpNull = nullValue;
     //cout << "Cell_null"<< tmpNull << endl;
     //printf("Raster scale: %lf \n", scale);
     //---------------------mapa localidades
     //printf("----matriz localidades\n");
-    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya_95PoP/locs_c.tif", rows, cols, scale,cell_null);
+    localidad_matrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/locs_c.tif", rows, cols, scale, nullValue);
     //obtenemos el numero de comunidades
-    num_com = objrast.contar_comunidades(localidad_matrix, rows, cols, cell_null);
+    locsNum = objrast.contar_comunidades(localidad_matrix, rows, cols, nullValue);
     //---------------------guardamos los requisitos de las comunidades en un mapa
 
     // Load demmnad from multiple years
-    demmand = objrast.loadDemmand("/home/ulises/Kenya_95PoP/BaU_vehicle.csv");
+    demmand = objrast.loadDemmand("/home/ulises/Kenya1km/Bau_walking.csv");
 
     // guardamos las localidades en un mapa para ordenarlas
-    int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, cell_null, num_com);
-    cell_null = tmpNull;
-    //cout << "Cell_null"<< cell_null << endl;
+    int numLoc = objrast.readLocalities(localidad_matrix, rows, cols, localidades, nullValue, locsNum);
+    nullValue = tmpNull;
+    //cout << "Cell_null"<< nullValue << endl;
     cout << "Total number of localities "<< numLoc << endl;
     //valores iniciales
     //IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
@@ -61,8 +64,8 @@ int main() {
     // Iterate over demmand for each year
     double locTimerStart, locTimerEnd;
 
-    //for(int year = 1; year<=demmand.size()-1;year++){
-    for(int year = 26; year<=demmand.size()-1;year++){
+    for(int year = 1; year<=demmand.size()-1;year++){
+    //for(int year = 26; year<=demmand.size()-1;year++){
         cout << "Processing year " << year << " ... " << endl;
         auto givemetime = chrono::system_clock::to_time_t(chrono::system_clock::now());
         cout << "Started at: "<< givemetime << endl;
@@ -87,7 +90,8 @@ int main() {
             //int iteration = 0;
             if (biomass_requerida.find(i) != biomass_requerida.end()) {//existe la comunidad con ese numero?
                 biomass = biomass_requerida.find(i);
-                if (biomass->second != 0) {//requisitos distintos a cero
+                //if (biomass->second != 0) {//requisitos distintos a cero
+                if (biomass->second >= 0){//requisitos distintos a cero
                     if (localidades.find(i) != localidades.end()) { //existe la comunidad con ese numero?
                         ubicacion = localidades.find(biomass->first);//buscar ubicacion de la localidad
                         //ubicaion inicial
@@ -95,7 +99,7 @@ int main() {
                         array.col = ubicacion->second.col;
                         array.val_fricc = 0;
                         array.key=0;
-                        cont++;//localidades calculadas
+                        locCount++;//localidades calculadas
                         float *CD_matrix = new float[rows*cols];
 
                         // Init CD_matrix with infinite values
@@ -126,14 +130,14 @@ int main() {
                                 row_temp = mov[1][h - 1] + inicial.row;
                                 col_temp = mov[0][h - 1] + inicial.col;
                                 if (row_temp < rows && row_temp >= 0 && col_temp < cols && col_temp >= 0 && fric_matrix[(cols*row_temp)+col_temp]>0.0) {
-                                    if (h % 2 != 0){//si es un movimiento lateral
+                                    if (h % 2 != 0){//Lateral movement
                                         array.val_fricc = (inicial.val_fricc) + ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                         //array.single_fricc = ((fric_matrix[(cols * row_temp) + col_temp])*scale);
-                                    }else {//si es un movimiento diagonal
+                                    }else {//Diagonal movement
                                         array.val_fricc = (inicial.val_fricc) + sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                         //array.single_fricc =  sqrt(2) * ((fric_matrix[(cols * row_temp) + col_temp])*scale);
                                     }//se busca el menor valor de CD, es posible que se escriba varias veces en una celda
-                                    if (CD_matrix[(cols*row_temp)+col_temp]>array.val_fricc ) {
+                                    if (CD_matrix[(cols*row_temp)+col_temp]>array.val_fricc ){
                                         array.row = row_temp;
                                         array.col = col_temp;
                                         array.key=key;
@@ -145,22 +149,24 @@ int main() {
                                 }
                             }
                         }
-                        //IDW_matrix_tmp=objMeth.IDW_test(biomass->second, CD_matrix, IDW_matrix_tmp, rows, cols, exp, cell_null);
+                        //IDW_matrix_tmp=objMeth.IDW_test(biomass->second, CD_matrix, IDW_matrix_tmp, rows, cols, exp, nullValue);
                         //---------------IDW
                         int row,col;
                         for(row = 0; row < rows; row++) {
                             for (col = 0; col < cols; col++) {
-                                if (CD_matrix[(cols * row) + col] <= 0) {
-                                    IDW_matrix[(cols * row) + col] = cell_null;
-                                } else {
+                                //if(CD_matrix[(cols * row) + col] == numeric_limits<float>::max()){ // null value
+                                if (CD_matrix[(cols * row) + col] <= 0) {// Null value
+                                    //TODO: Check condition
+                                    IDW_matrix[(cols * row) + col] = nullValue;
+                                    //cout<< "IDW null" <<endl;
+                                } else{
                                     #pragma omp atomic
                                     IDW_matrix[(cols * row) + col] += biomass->second / pow(CD_matrix[(cols * row) + col], exp);
                                 }
                             }
                         }
-                        // Free memory on each iteration
+                        // Free memory on each iteration CD_matrix
                         delete CD_matrix;
-                        //free array;
                     }
                 }
             }
@@ -168,7 +174,7 @@ int main() {
         // ---------------agregar valores nulos en la ubicacion de las localidade
         ubicacion = localidades.begin();
         while (ubicacion != localidades.end()) {
-            IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = cell_null;
+            IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = 0;
             ubicacion++;
         }
         objrast.matrix_to_tiff(IDW_matrix, rows, cols,numLoc,"IDW_C++_" + demmand[year].first);//crea tiff de IDW de todas las localidades calculadas

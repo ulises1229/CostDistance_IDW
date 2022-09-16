@@ -2,10 +2,10 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Mofuss (a305922f-705d-4769-890e-b1c26139cdb1)">
+      <paths name="Mofuss (e3f40d61-602d-4e0f-9e9c-37bd1b69e0f4)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.96cdh0fCVT" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/tmp.Irx8suv5sv" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release" />

@@ -197,7 +197,7 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
     for(row= 0; row < rows; row++) {
         for (col = 0; col < cols; col++) {
             pBuf[(row * cols) + col] = output_raster[(cols*row)+col];
-            if(output_raster[(cols*row)+col] <= 0.0)
+            if(output_raster[(cols*row)+col] < 0)
                 pBuf[row * cols + col] = -9999;
             if(output_raster[(cols*row)+col] > maxVal)
                 maxVal = output_raster[(cols*row)+col];

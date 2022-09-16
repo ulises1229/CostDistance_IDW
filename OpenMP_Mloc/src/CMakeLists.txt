@@ -14,8 +14,8 @@ add_executable(IDW_OpenMP
         common.h
         Raster.cpp
         Raster.h
-        Metodos.cpp
-        Metodos.h
+        Methods_IDW_CD.cpp
+        Methods_IDW_CD.h
 
     )
 # Specify GDAL libraries to link your cpp executable target against

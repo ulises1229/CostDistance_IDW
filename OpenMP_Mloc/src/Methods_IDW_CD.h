@@ -20,7 +20,7 @@ struct position{
     }
 };
 
-class metodos{
+class Methods{
 public:
 	float* reset_Matrix(int rows,  int cols, float val1);
     void IDW_test(float req, float *cost_dist, float *&IDW, int rows, int cols, float exp, int cell_null);

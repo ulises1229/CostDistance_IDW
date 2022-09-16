@@ -1,7 +1,7 @@
-#include "Metodos.h"
+#include "Methods_IDW_CD.h"
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-float* metodos::reset_Matrix(int rows, int cols,float val1){
+float* Methods::reset_Matrix(int rows, int cols, float val1){
     int row,col;
     float *IDW = new float [rows * cols];//matriz IDW para todas las localidades
     for(row=0; row<rows; row++)
@@ -11,7 +11,7 @@ float* metodos::reset_Matrix(int rows, int cols,float val1){
 }
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-void metodos::IDW_test(float req, float *cost_dist, float *&IDW, int rows, int cols, float exp, int cell_null){
+void Methods::IDW_test(float req, float *cost_dist, float *&IDW, int rows, int cols, float exp, int cell_null){
     int row,col;
     for(row = 0; row < rows; row++)
         for(col = 0; col < cols; col++){
@@ -23,7 +23,7 @@ void metodos::IDW_test(float req, float *cost_dist, float *&IDW, int rows, int c
 }
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-float* metodos::cost_distance(float *fric_matrix, int rows, int cols, position array, float *CD_matrix, float scale) {
+float* Methods::cost_distance(float *fric_matrix, int rows, int cols, position array, float *CD_matrix, float scale) {
     priority_queue<position> CD_costos;
     int key = 1;
     int row_temp,col_temp,i;
