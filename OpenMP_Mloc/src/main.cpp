@@ -28,7 +28,7 @@ int main() {
     vector<pair<string, vector<float>>> demmand;// Vector to store demand of all years
 
 // ------------------------------------------------------------------------matrices
-    float* fric_matrix; //mapa friccion
+    float* fric_matrix; //matrix to store the friction map
     float* localidad_matrix;//mapa con localidades (ubicacion)
     float* IDW_matrix;
     int tmpNull;
