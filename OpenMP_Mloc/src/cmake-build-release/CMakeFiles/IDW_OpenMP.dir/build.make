@@ -97,32 +97,32 @@ CMakeFiles/IDW_OpenMP.dir/Raster.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IDW_OpenMP.dir/Raster.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.Irx8suv5sv/Raster.cpp -o CMakeFiles/IDW_OpenMP.dir/Raster.cpp.s
 
-CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o: CMakeFiles/IDW_OpenMP.dir/flags.make
-CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o: ../Metodos.cpp
-CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o: CMakeFiles/IDW_OpenMP.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/tmp/tmp.Irx8suv5sv/cmake-build-release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o -MF CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o.d -o CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o -c /tmp/tmp.Irx8suv5sv/Metodos.cpp
+CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o: CMakeFiles/IDW_OpenMP.dir/flags.make
+CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o: ../Methods_IDW_CD.cpp
+CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o: CMakeFiles/IDW_OpenMP.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/tmp/tmp.Irx8suv5sv/cmake-build-release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o -MF CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o.d -o CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o -c /tmp/tmp.Irx8suv5sv/Methods_IDW_CD.cpp
 
-CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.Irx8suv5sv/Metodos.cpp > CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.i
+CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.Irx8suv5sv/Methods_IDW_CD.cpp > CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.i
 
-CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.Irx8suv5sv/Metodos.cpp -o CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.s
+CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.Irx8suv5sv/Methods_IDW_CD.cpp -o CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.s
 
 # Object files for target IDW_OpenMP
 IDW_OpenMP_OBJECTS = \
 "CMakeFiles/IDW_OpenMP.dir/main.cpp.o" \
 "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o" \
-"CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o"
+"CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o"
 
 # External object files for target IDW_OpenMP
 IDW_OpenMP_EXTERNAL_OBJECTS =
 
 IDW_OpenMP: CMakeFiles/IDW_OpenMP.dir/main.cpp.o
 IDW_OpenMP: CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o
-IDW_OpenMP: CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o
+IDW_OpenMP: CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o
 IDW_OpenMP: CMakeFiles/IDW_OpenMP.dir/build.make
 IDW_OpenMP: CMakeFiles/IDW_OpenMP.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/tmp/tmp.Irx8suv5sv/cmake-build-release/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable IDW_OpenMP"

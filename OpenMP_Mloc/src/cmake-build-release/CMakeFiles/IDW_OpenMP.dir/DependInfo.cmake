@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/tmp/tmp.Irx8suv5sv/Metodos.cpp" "CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o.d"
+  "/tmp/tmp.Irx8suv5sv/Methods_IDW_CD.cpp" "CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o.d"
   "/tmp/tmp.Irx8suv5sv/Raster.cpp" "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o.d"
   "/tmp/tmp.Irx8suv5sv/main.cpp" "CMakeFiles/IDW_OpenMP.dir/main.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/main.cpp.o.d"
   )

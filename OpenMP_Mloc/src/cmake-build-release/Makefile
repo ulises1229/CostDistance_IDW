@@ -129,29 +129,29 @@ IDW_OpenMP/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/build
 .PHONY : IDW_OpenMP/fast
 
-Metodos.o: Metodos.cpp.o
-.PHONY : Metodos.o
+Methods_IDW_CD.o: Methods_IDW_CD.cpp.o
+.PHONY : Methods_IDW_CD.o
 
 # target to build an object file
-Metodos.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o
-.PHONY : Metodos.cpp.o
+Methods_IDW_CD.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o
+.PHONY : Methods_IDW_CD.cpp.o
 
-Metodos.i: Metodos.cpp.i
-.PHONY : Metodos.i
+Methods_IDW_CD.i: Methods_IDW_CD.cpp.i
+.PHONY : Methods_IDW_CD.i
 
 # target to preprocess a source file
-Metodos.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.i
-.PHONY : Metodos.cpp.i
+Methods_IDW_CD.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.i
+.PHONY : Methods_IDW_CD.cpp.i
 
-Metodos.s: Metodos.cpp.s
-.PHONY : Metodos.s
+Methods_IDW_CD.s: Methods_IDW_CD.cpp.s
+.PHONY : Methods_IDW_CD.s
 
 # target to generate assembly for a file
-Metodos.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.s
-.PHONY : Metodos.cpp.s
+Methods_IDW_CD.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IDW_OpenMP.dir/build.make CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.s
+.PHONY : Methods_IDW_CD.cpp.s
 
 Raster.o: Raster.cpp.o
 .PHONY : Raster.o
@@ -210,9 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... IDW_OpenMP"
-	@echo "... Metodos.o"
-	@echo "... Metodos.i"
-	@echo "... Metodos.s"
+	@echo "... Methods_IDW_CD.o"
+	@echo "... Methods_IDW_CD.i"
+	@echo "... Methods_IDW_CD.s"
 	@echo "... Raster.o"
 	@echo "... Raster.i"
 	@echo "... Raster.s"

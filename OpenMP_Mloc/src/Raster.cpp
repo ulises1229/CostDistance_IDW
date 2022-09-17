@@ -70,7 +70,7 @@ int Raster::contar_comunidades(float *mapa_local, int rows, int cols,int cell_nu
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
-int Raster::readLocalities(float *map_local, int rows, int cols, map<int,local> &local_ord, int cell_null, int num_local) {
+int Raster::readLocalities(float *map_local, int rows, int cols, map<int,local> &local_ord, int cell_null) {
     local array;
     int countLoc=0;
     for(int row=0;row<rows;row++){

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o"
-  "CMakeFiles/IDW_OpenMP.dir/Metodos.cpp.o.d"
+  "CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o"
+  "CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o.d"
   "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o"
   "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o.d"
   "CMakeFiles/IDW_OpenMP.dir/main.cpp.o"
