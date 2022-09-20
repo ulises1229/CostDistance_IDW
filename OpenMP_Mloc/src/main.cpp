@@ -30,7 +30,6 @@ int main() {
     float* fric_matrix; //matrix to store the friction map
     float* locsMatrix;//matrix to store localities
     float* IDW_matrix; // matrix to store final IDW
-    int tmpNull; // auxiliary variable
 
     // maps to speed up opperations
     map<int, Raster::local> localidades;// map of localities
@@ -41,9 +40,11 @@ int main() {
 
     // friction map
     fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/fricc_w.tif", rows, cols, scale, nullValue);
+    int tmpNull = 0;
 
     // Localities map
-    locsMatrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/locs_c.tif", rows, cols, scale, nullValue);
+    locsMatrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/locs_c.tif", rows, cols, scale, tmpNull);
+
 
     //get the number os locs
     //locsNum = objrast.contar_comunidades(locsMatrix, rows, cols, nullValue);
@@ -91,7 +92,7 @@ int main() {
             if (requiredBiomass.find(i) != requiredBiomass.end()) {//existe la comunidad con ese numero?
                 biomass = requiredBiomass.find(i);
                 //if (biomass->second != 0) {//requisitos distintos a cero
-                if (biomass->second >= 0){//requisitos distintos a cero
+                if (biomass->second != 0){//requisitos distintos a cero
                     if (localidades.find(i) != localidades.end()) { //existe la comunidad con ese numero?
                         ubicacion = localidades.find(biomass->first);//buscar ubicacion de la localidad
                         //ubicaion inicial
@@ -154,11 +155,12 @@ int main() {
                         int row,col;
                         for(row = 0; row < rows; row++) {
                             for (col = 0; col < cols; col++) {
-                                //if(CD_matrix[(cols * row) + col] == numeric_limits<float>::max()){ // null value
-                                if (CD_matrix[(cols * row) + col] <= 0) {// Null value
-                                    //TODO: Check condition
+                                //if(CD_matrix[(cols * row) + col] == numeric_limits<float>::max()){ // null valu
+                                //float temp = fric_matrix[(cols * row) + col];
+                                if (fric_matrix[(cols * row) + col] < 0.0) {// Null value
+                                    //cout << IDW_matrix[(cols * row) + col] << endl;
                                     IDW_matrix[(cols * row) + col] = nullValue;
-                                    //cout<< "IDW null" <<endl;
+
                                 } else{
                                     #pragma omp atomic
                                     IDW_matrix[(cols * row) + col] += biomass->second / pow(CD_matrix[(cols * row) + col], exp);
@@ -177,7 +179,7 @@ int main() {
             IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = 0;
             ubicacion++;
         }
-        objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, "IDW_C++_" + demmand[year].first);//crea tiff de IDW de todas las localidades calculadas
+        objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, "IDW_C++_" + demmand[year].first, nullValue);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
 

@@ -16,7 +16,7 @@ public:
     int no_row(string name);
     string readFileIntoString(const string& path);
     vector<pair<string, vector<float>>> loadDemmand(string name);
-    void matrix_to_tiff(float *output_raster, int rows, int cols, int count, string name);
+    void matrix_to_tiff(float *output_raster, int rows, int cols, int count, string name, int nullValue);
     
 private:
     const char *projection;

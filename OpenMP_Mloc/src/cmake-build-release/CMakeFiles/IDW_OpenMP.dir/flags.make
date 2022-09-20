@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/tmp/tmp.Irx8suv5sv/include -I/tmp/tmp.Irx8suv5sv/gdal
+CXX_INCLUDES = -I/tmp/tmp.ZXiuhIHW7C/include -I/tmp/tmp.ZXiuhIHW7C/gdal
 
 CXX_FLAGS =  -std=c++14 -fopenmp -O3 -DNDEBUG -std=gnu++14
 

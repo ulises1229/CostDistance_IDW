@@ -176,7 +176,7 @@ vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
     return result;
 }
 //-------------------------------------------------------------------------------------------------------------------------
-void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,string name) {
+void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,string name,  int nullValue) {
     int row,col;//iteradores
     GDALDataset *poDstDS;
     GDALDriver *poDriver;
@@ -194,18 +194,19 @@ void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,
 
     GDALRasterBand *poBand;
     float *pBuf = new float[rows * cols], maxVal = 0;
+
     for(row= 0; row < rows; row++) {
         for (col = 0; col < cols; col++) {
             pBuf[(row * cols) + col] = output_raster[(cols*row)+col];
-            if(output_raster[(cols*row)+col] < 0)
-                pBuf[row * cols + col] = -9999;
+            /*if(output_raster[(cols*row)+col] < 0.0)
+                pBuf[row * cols + col] = nullValue;
             if(output_raster[(cols*row)+col] > maxVal)
-                maxVal = output_raster[(cols*row)+col];
+                maxVal = output_raster[(cols*row)+col];*/
         }
     }
 
     poBand = poDstDS->GetRasterBand(1);
-    poDstDS->GetRasterBand(1)->SetNoDataValue(-9999);
+    poDstDS->GetRasterBand(1)->SetNoDataValue(nullValue);
     poBand->RasterIO( GF_Write, 0, 0, cols, rows,pBuf, cols, rows, GDT_Float32, 0, 0 );
     GDALClose( (GDALDatasetH) poDstDS );
 

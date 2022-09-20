@@ -1,4 +1,4 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.Irx8suv5sv -B /tmp/tmp.Irx8suv5sv/cmake-build-release
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /tmp/tmp.ZXiuhIHW7C
 -- Configuring done
 -- Generating done
--- Build files have been written to: /tmp/tmp.Irx8suv5sv/cmake-build-release
+-- Build files have been written to: /tmp/tmp.ZXiuhIHW7C/cmake-build-release

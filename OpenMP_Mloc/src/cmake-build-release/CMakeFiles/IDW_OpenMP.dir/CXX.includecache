@@ -6,29 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/tmp/tmp.96cdh0fCVT/Metodos.cpp
-Metodos.h
-/tmp/tmp.96cdh0fCVT/Metodos.h
-
-/tmp/tmp.96cdh0fCVT/Metodos.h
+/tmp/tmp.ZXiuhIHW7C/Methods_IDW_CD.h
 common.h
-/tmp/tmp.96cdh0fCVT/common.h
+/tmp/tmp.ZXiuhIHW7C/common.h
 
-/tmp/tmp.96cdh0fCVT/Raster.cpp
-Raster.h
-/tmp/tmp.96cdh0fCVT/Raster.h
-sstream
--
-iostream
--
-fstream
--
-
-/tmp/tmp.96cdh0fCVT/Raster.h
+/tmp/tmp.ZXiuhIHW7C/Raster.h
 common.h
-/tmp/tmp.96cdh0fCVT/common.h
+/tmp/tmp.ZXiuhIHW7C/common.h
 
-/tmp/tmp.96cdh0fCVT/common.h
+/tmp/tmp.ZXiuhIHW7C/common.h
 array
 -
 memory
@@ -78,23 +64,25 @@ functional
 queue
 -
 gdal/gdal.h
-/tmp/tmp.96cdh0fCVT/gdal/gdal.h
+/tmp/tmp.ZXiuhIHW7C/gdal/gdal.h
 gdal/gdal_priv.h
-/tmp/tmp.96cdh0fCVT/gdal/gdal_priv.h
+/tmp/tmp.ZXiuhIHW7C/gdal/gdal_priv.h
 gdal/gdalwarper.h
-/tmp/tmp.96cdh0fCVT/gdal/gdalwarper.h
+/tmp/tmp.ZXiuhIHW7C/gdal/gdalwarper.h
 gdal/ogr_spatialref.h
-/tmp/tmp.96cdh0fCVT/gdal/ogr_spatialref.h
+/tmp/tmp.ZXiuhIHW7C/gdal/ogr_spatialref.h
 gdal/ogr_geometry.h
-/tmp/tmp.96cdh0fCVT/gdal/ogr_geometry.h
+/tmp/tmp.ZXiuhIHW7C/gdal/ogr_geometry.h
 
-/tmp/tmp.96cdh0fCVT/main.cpp
+/tmp/tmp.ZXiuhIHW7C/main.cpp
 common.h
-/tmp/tmp.96cdh0fCVT/common.h
-Metodos.h
-/tmp/tmp.96cdh0fCVT/Metodos.h
+/tmp/tmp.ZXiuhIHW7C/common.h
+Methods_IDW_CD.h
+/tmp/tmp.ZXiuhIHW7C/Methods_IDW_CD.h
 Raster.h
-/tmp/tmp.96cdh0fCVT/Raster.h
-array
+/tmp/tmp.ZXiuhIHW7C/Raster.h
+ctime
+-
+chrono
 -
 
