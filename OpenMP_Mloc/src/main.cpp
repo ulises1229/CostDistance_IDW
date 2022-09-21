@@ -174,11 +174,11 @@ int main() {
             }
         }
         // ---------------agregar valores nulos en la ubicacion de las localidade
-        ubicacion = localidades.begin();
+        /*ubicacion = localidades.begin();
         while (ubicacion != localidades.end()) {
             IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = 0;
             ubicacion++;
-        }
+        }*/
         objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, "IDW_C++_" + demmand[year].first, nullValue);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
