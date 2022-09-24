@@ -39,11 +39,11 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
 
     // friction map
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/fricc_w.tif", rows, cols, scale, nullValue);
+    fric_matrix = objrast.read_tif_matrix("/home/ulises/haiti100m/fricc_v.tif", rows, cols, scale, nullValue);
     int tmpNull = 0;
 
     // Localities map
-    locsMatrix = objrast.read_tif_matrix("/home/ulises/Kenya1km/locs_c.tif", rows, cols, scale, tmpNull);
+    locsMatrix = objrast.read_tif_matrix("/home/ulises/haiti100m/locs_c.tif", rows, cols, scale, tmpNull);
 
 
     //get the number os locs
@@ -51,7 +51,7 @@ int main() {
 
     /* Store requisites of communities
     Load demmnad from multiple years */
-    demmand = objrast.loadDemmand("/home/ulises/Kenya1km/Bau_walking.csv");
+    demmand = objrast.loadDemmand("/home/ulises/haiti100m/Haiti_vehicle.csv");
 
     // Store locs number
     int locsNum = objrast.readLocalities(locsMatrix, rows, cols, localidades, nullValue);
@@ -71,12 +71,15 @@ int main() {
         // Started at: " << givenTime << endl;
         cout <<"Started at: "<< ctime(&givenTime) << endl;
         locTimerStart = omp_get_wtime();
-        
+
         IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
         // Use the same format as before
+        cout << "before parallel region" << endl;
         for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
+            cout<< "test"<< endl;
             requiredBiomass.insert(pair<int, float>(int(demmand[0].second[loc]), float(demmand[year].second[loc])));
         }
+        cout << "before parallel region" << endl;
         //-------------------------------------------------------------------------------------------------------inicia calculo modelos
         biomass = requiredBiomass.begin();
         int start =int(biomass->first);
@@ -84,7 +87,7 @@ int main() {
         int end =int(biomass->first);
 
         const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
-
+        cout << "before parallel region" << endl;
         //omp_set_num_threads(1);
         #pragma omp parallel for private(ubicacion,biomass,array)
         for(i=start;i<=end;i++) {
@@ -179,7 +182,15 @@ int main() {
             IDW_matrix[(cols * ubicacion->second.row)+ubicacion->second.col] = 0;
             ubicacion++;
         }*/
-        objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, "IDW_C++_" + demmand[year].first, nullValue);//crea tiff de IDW de todas las localidades calculadas
+
+        string fileName = "";
+        if(year>9)
+            fileName = "IDW_C++_" + demmand[year].first + to_string(year);
+        else
+            fileName = "IDW_C++_" + demmand[year].first +"0" + to_string(year);;
+
+        // export image
+        objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, fileName , nullValue);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
 
