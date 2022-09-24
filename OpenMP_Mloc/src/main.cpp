@@ -39,15 +39,15 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
 
     // friction map
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/haiti100m/fricc_v.tif", rows, cols, scale, nullValue);
+    fric_matrix = objrast.importRaster("/home/ulises/haiti100m/fricc_v.tif", rows, cols, scale, nullValue);
     int tmpNull = 0;
 
     // Localities map
-    locsMatrix = objrast.read_tif_matrix("/home/ulises/haiti100m/locs_c.tif", rows, cols, scale, tmpNull);
+    locsMatrix = objrast.importRaster("/home/ulises/haiti100m/locs_c.tif", rows, cols, scale, tmpNull);
 
 
     //get the number os locs
-    //locsNum = objrast.contar_comunidades(locsMatrix, rows, cols, nullValue);
+    //locsNum = objrast.countCommunities(locsMatrix, rows, cols, nullValue);
 
     /* Store requisites of communities
     Load demmnad from multiple years */
@@ -186,7 +186,7 @@ int main() {
             fileName = "IDW_C++_" + demmand[year].first +"0" + to_string(year);;
 
         // export image
-        objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, fileName , nullValue);//crea tiff de IDW de todas las localidades calculadas
+        objrast.exportRaster(IDW_matrix, rows, cols, locsNum, fileName, nullValue);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
 

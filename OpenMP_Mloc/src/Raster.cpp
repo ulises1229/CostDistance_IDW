@@ -10,11 +10,11 @@
 
 double adfGeoTransform[6];
 //-------------------------------------------------------------------------------------------------------------------------
-float* Raster::read_tif_matrix(std::string file,int &rows, int &cols, float &scale,int &cell_null){
+float* Raster::importRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null){
     int row,col;//iteradores matriz
     GDALDataset *dataset;
     GDALAllRegister();
-    string ds = file;
+    string ds = name;
     dataset = (GDALDataset *) GDALOpen(ds.c_str(), GA_ReadOnly);
     GDALRasterBand  *poBand;
 
@@ -47,7 +47,7 @@ float* Raster::read_tif_matrix(std::string file,int &rows, int &cols, float &sca
     return matrix;
 }
 //-------------------------------------------------------------------------------------------------------------------------
-void Raster::print_raster(float *matrix, int rows, int cols) {
+void Raster::printRaster(float *matrix, int rows, int cols) {
     printf("Imprimiento matriz \n");
     for(int row=0; row< rows; row++){
         for(int col =0; col < cols; col++){
@@ -57,7 +57,7 @@ void Raster::print_raster(float *matrix, int rows, int cols) {
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------
-int Raster::contar_comunidades(float *mapa_local, int rows, int cols,int cell_null) {
+int Raster::countCommunities(float *mapa_local, int rows, int cols, int cell_null) {
     int count=0;
     for(int row=0;row<rows;row++)
         for(int col=0;col<cols;col++){
@@ -176,7 +176,7 @@ vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
     return result;
 }
 //-------------------------------------------------------------------------------------------------------------------------
-void Raster::matrix_to_tiff(float *output_raster, int rows, int cols, int count,string name,  int nullValue) {
+void Raster::exportRaster(float *output_raster, int rows, int cols, int count, string name, int nullValue) {
     int row,col;//iteradores
     GDALDataset *poDstDS;
     GDALDriver *poDriver;
