@@ -4,24 +4,13 @@ set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
 
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/tmp/tmp.ZXiuhIHW7C/Methods_IDW_CD.cpp" "/tmp/tmp.ZXiuhIHW7C/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o"
-  "/tmp/tmp.ZXiuhIHW7C/Raster.cpp" "/tmp/tmp.ZXiuhIHW7C/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o"
-  "/tmp/tmp.ZXiuhIHW7C/main.cpp" "/tmp/tmp.ZXiuhIHW7C/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/main.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
-
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../include"
-  "../gdal"
   )
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/tmp/tmp.vO3Hp39mJS/Methods_IDW_CD.cpp" "CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/Methods_IDW_CD.cpp.o.d"
+  "/tmp/tmp.vO3Hp39mJS/Raster.cpp" "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/Raster.cpp.o.d"
+  "/tmp/tmp.vO3Hp39mJS/main.cpp" "CMakeFiles/IDW_OpenMP.dir/main.cpp.o" "gcc" "CMakeFiles/IDW_OpenMP.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.

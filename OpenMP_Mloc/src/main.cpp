@@ -39,15 +39,15 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
 
     // friction map
-    fric_matrix = objrast.read_tif_matrix("/home/ulises/haiti100m/fricc_v.tif", rows, cols, scale, nullValue);
+    fric_matrix = objrast.importRaster("/home/ulises/haiti100m/fricc_v.tif", rows, cols, scale, nullValue);
     int tmpNull = 0;
 
     // Localities map
-    locsMatrix = objrast.read_tif_matrix("/home/ulises/haiti100m/locs_c.tif", rows, cols, scale, tmpNull);
+    locsMatrix = objrast.importRaster("/home/ulises/haiti100m/locs_c.tif", rows, cols, scale, tmpNull);
 
 
     //get the number os locs
-    //locsNum = objrast.contar_comunidades(locsMatrix, rows, cols, nullValue);
+    //locsNum = objrast.countCommunities(locsMatrix, rows, cols, nullValue);
 
     /* Store requisites of communities
     Load demmnad from multiple years */
@@ -74,12 +74,9 @@ int main() {
 
         IDW_matrix = objMeth.reset_Matrix(rows, cols, 0); //llena la matriz inicial del valor indicado
         // Use the same format as before
-        cout << "before parallel region" << endl;
         for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
-            cout<< "test"<< endl;
             requiredBiomass.insert(pair<int, float>(int(demmand[0].second[loc]), float(demmand[year].second[loc])));
         }
-        cout << "before parallel region" << endl;
         //-------------------------------------------------------------------------------------------------------inicia calculo modelos
         biomass = requiredBiomass.begin();
         int start =int(biomass->first);
@@ -87,7 +84,6 @@ int main() {
         int end =int(biomass->first);
 
         const int mov[2][8]={{1,1,0,-1,-1,-1,0,1},{0,1,1,1,0,-1,-1,-1}};
-        cout << "before parallel region" << endl;
         //omp_set_num_threads(1);
         #pragma omp parallel for private(ubicacion,biomass,array)
         for(i=start;i<=end;i++) {
@@ -190,7 +186,7 @@ int main() {
             fileName = "IDW_C++_" + demmand[year].first +"0" + to_string(year);;
 
         // export image
-        objrast.matrix_to_tiff(IDW_matrix, rows, cols, locsNum, fileName , nullValue);//crea tiff de IDW de todas las localidades calculadas
+        objrast.exportRaster(IDW_matrix, rows, cols, locsNum, fileName, nullValue);//crea tiff de IDW de todas las localidades calculadas
 
         //-----------liberar memoria
 
