@@ -1,17 +1,20 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.vO3Hp39mJS -B /tmp/tmp.vO3Hp39mJS/cmake-build-release
--- The C compiler identification is GNU 8.5.0
--- The CXX compiler identification is GNU 8.5.0
+"/Users/uolivares/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/222.3345.126/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP_Mloc/src -B /Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP_Mloc/src/cmake-build-release
+-- The C compiler identification is AppleClang 12.0.5.12050022
+-- The CXX compiler identification is AppleClang 12.0.5.12050022
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Found GDAL: /usr/lib64/libgdal.so (found version "3.0.4") 
+-- Found GDAL: /Library/Frameworks/gdal.framework (found version "1.11.4") 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /tmp/tmp.vO3Hp39mJS/cmake-build-release
+-- Build files have been written to: /Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP_Mloc/src/cmake-build-release
+
+Problems were encountered while collecting compiler information:
+	clang: error: unsupported option '-fopenmp'

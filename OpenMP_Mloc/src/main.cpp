@@ -3,8 +3,11 @@
 #include "Raster.h"
 #include <ctime>
 #include <chrono>
+#include <string.h>
 
 using namespace std;
+
+void parseParameters();
 
 int main() {
     //Object creation
@@ -39,11 +42,11 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
 
     // friction map
-    fric_matrix = objrast.importRaster("/home/ulises/haiti100m/fricc_v.tif", rows, cols, scale, nullValue);
+    fric_matrix = objrast.importRaster("Kiambu_Nairobi_100m/fricc_w.tif", rows, cols, scale, nullValue);
     int tmpNull = 0;
 
     // Localities map
-    locsMatrix = objrast.importRaster("/home/ulises/haiti100m/locs_c.tif", rows, cols, scale, tmpNull);
+    locsMatrix = objrast.importRaster("Kiambu_Nairobi_100m/locs_c.tif", rows, cols, scale, tmpNull);
 
 
     //get the number os locs
@@ -51,9 +54,10 @@ int main() {
 
     /* Store requisites of communities
     Load demmnad from multiple years */
-    demmand = objrast.loadDemmand("/home/ulises/haiti100m/Haiti_vehicle.csv");
+    demmand = objrast.loadDemmand("Kiambu_Nairobi_100m/BaU_fwch_walking.csv");
+    // TODO: write a method to directly import demmand from a BaU file and avoid.
 
-    // Store locs number
+    // Store locs numbere
     int locsNum = objrast.readLocalities(locsMatrix, rows, cols, localidades, nullValue);
 
     cout << "Total number of localities " << locsNum << endl;
@@ -64,7 +68,7 @@ int main() {
     // Iterate over demmand for each year
     double locTimerStart, locTimerEnd;
     for(int year = 1; year<=demmand.size()-1;year++){
-    //for(int year = 26; year<=demmand.size()-1;year++){
+    //for(int year = 12; year<=demmand.size()-1;year++){
         cout << "Processing year " << year << " ... " << endl;
         auto givenTime = chrono::system_clock::to_time_t(chrono::system_clock::now());
         //cout << "
@@ -179,11 +183,12 @@ int main() {
             ubicacion++;
         }*/
 
+
         string fileName = "";
         if(year>9)
-            fileName = "IDW_C++_" + demmand[year].first + to_string(year);
+            fileName = "IDW_C++_" + demmand[year].first.substr(5, 4) + to_string(year);
         else
-            fileName = "IDW_C++_" + demmand[year].first +"0" + to_string(year);;
+            fileName = "IDW_C++_" + demmand[year].first.substr(5, 4) +"0" + to_string(year);;
 
         // export image
         objrast.exportRaster(IDW_matrix, rows, cols, locsNum, fileName, nullValue);//crea tiff de IDW de todas las localidades calculadas
@@ -214,4 +219,8 @@ int main() {
     delete locsMatrix;
 
     return 0;
+}
+
+void parseParameters(){
+    
 }
