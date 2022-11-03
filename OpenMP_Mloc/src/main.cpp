@@ -4,15 +4,19 @@
 #include <ctime>
 #include <chrono>
 #include <string.h>
+#include <tclap/CmdLine.h>
+
 
 using namespace std;
 
 void parseParameters(int argc, const char** argv);
 
-int main() {
-    //variable definition
-    string frictionMap, demmandFile, locsMap;
+//Global variable definition
+string frictionMap, demmandFile, locsMap;
 
+int main(int argc, const char** argv) {
+
+    parseParameters(argc, argv);
     //Object creation
     Raster objrast;
     Methods objMeth;
@@ -45,11 +49,11 @@ int main() {
     std::map<int, float>::iterator biomass; //iterador mapa requisitos localidad
 
     // friction map
-    fric_matrix = objrast.importRaster("Kiambu_Nairobi_100m/fricc_w.tif", rows, cols, scale, nullValue);
+    fric_matrix = objrast.importRaster(frictionMap, rows, cols, scale, nullValue);
     int tmpNull = 0;
 
     // Localities map
-    locsMatrix = objrast.importRaster("Kiambu_Nairobi_100m/locs_c.tif", rows, cols, scale, tmpNull);
+    locsMatrix = objrast.importRaster(locsMap, rows, cols, scale, tmpNull);
 
 
     //get the number os locs
@@ -57,7 +61,7 @@ int main() {
 
     /* Store requisites of communities
     Load demmnad from multiple years */
-    demmand = objrast.loadDemmand("Kiambu_Nairobi_100m/BaU_fwch_walking.csv");
+    demmand = objrast.loadDemmand(demmandFile);
     // TODO: write a method to directly import demmand from a BaU file and avoid.
 
     // Store locs numbere
@@ -240,8 +244,8 @@ void parseParameters(int argc, const char** argv){
         // such as "-n Bishop".
         //TCLAP::ValueArg<std::string> nameArg("n","name","Name to print",true,"homer","string");
         TCLAP::ValueArg<std::string>friction("f","friction","Absolute path to friction.tif",true,"/path/to/friction.tif","string");
-        TCLAP::ValueArg<std::string>locs("l","friction","Absolute path to locs.tif",true,"/path/to/locs.tif","string");
-        TCLAP::ValueArg<std::string>demmand("d","friction","Absolute path to demmand.csv",true,"/path/to/demmand.csv","string");
+        TCLAP::ValueArg<std::string>locs("l","locs","Absolute path to locs.tif",true,"/path/to/locs.tif","string");
+        TCLAP::ValueArg<std::string>demmand("d","demmand","Absolute path to demmand.csv",true,"/path/to/demmand.csv","string");
         // Add the argument nameArg to the CmdLine object. The CmdLine object
         // uses this Arg to parse the command line.
 
@@ -252,8 +256,8 @@ void parseParameters(int argc, const char** argv){
         // Parse the argv array.
         cmd.parse( argc, argv );
 
-        friction_map = friction.getValue();
-        demmand = demmand.getValue();
+        frictionMap = friction.getValue();
+        demmandFile = demmand.getValue();
         locsMap = locs.getValue();
 
     }

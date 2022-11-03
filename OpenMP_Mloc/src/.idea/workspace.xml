@@ -18,22 +18,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b2ea626-b4f1-41db-b3fd-999cbd01113c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tclap/Arg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/ArgException.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/ArgTraits.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/CmdLine.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/CmdLineInterface.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/CmdLineOutput.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/Constraint.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/DocBookOutput.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/HelpVisitor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/IgnoreRestVisitor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/Makefile.am" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/Makefile.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/MultiArg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/MultiSwitchArg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/OptionalUnlabeledTracker.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/StandardTraits.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/StdOutput.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/SwitchArg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/UnlabeledMultiArg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/UnlabeledValueArg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/ValueArg.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/ValuesConstraint.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/VersionVisitor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/Visitor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/XorHandler.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/ZshCompletionOutput.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tclap/sstream.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-environment.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/IDW_OpenMP.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/IDW_OpenMP.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,9 +84,15 @@
     "WebServerToolWindowFactoryState": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP_Mloc/src",
     "settings.editor.selected.configurable": "CPPToolchains"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager" selected="CMake Application.IDW_OpenMP">
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -86,7 +104,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IDW_OpenMP" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
+    <configuration name="IDW_OpenMP" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" PROGRAM_PARAMS="-f /home/ulises/Kenya1km/fricc_v.tif -d /home/ulises/Kenya1km/BaU_vehicle.csv -l /home/ulises/Kenya1km/locs_c.tif" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -147,7 +165,7 @@
       <workItem from="1663391411851" duration="136000" />
       <workItem from="1663686478350" duration="21243000" />
       <workItem from="1664042423596" duration="10967000" />
-      <workItem from="1667349827701" duration="1986000" />
+      <workItem from="1667349827701" duration="3015000" />
     </task>
     <servers />
   </component>
@@ -170,12 +188,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>218</line>
+          <line>222</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>172</line>
+          <line>176</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
