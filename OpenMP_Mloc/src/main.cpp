@@ -7,9 +7,12 @@
 
 using namespace std;
 
-void parseParameters();
+void parseParameters(int argc, const char** argv);
 
 int main() {
+    //variable definition
+    string frictionMap, demmandFile, locsMap;
+
     //Object creation
     Raster objrast;
     Methods objMeth;
@@ -221,6 +224,41 @@ int main() {
     return 0;
 }
 
-void parseParameters(){
-    
+void parseParameters(int argc, const char** argv){
+    try {
+
+        // Define the command line object, and insert a message
+        // that describes the program. The "Command description message"
+        // is printed last in the help text. The second argument is the
+        // delimiter (usually space) and the last one is the version number.
+        // The CmdLine object parses the argv array based on the Arg objects
+        // that it contains.
+        TCLAP::CmdLine cmd("Command description message", ' ', "1");
+
+        // Define a value argument and add it to the command line.
+        // A value arg defines a flag and a type of value that it expects,
+        // such as "-n Bishop".
+        //TCLAP::ValueArg<std::string> nameArg("n","name","Name to print",true,"homer","string");
+        TCLAP::ValueArg<std::string>friction("f","friction","Absolute path to friction.tif",true,"/path/to/friction.tif","string");
+        TCLAP::ValueArg<std::string>locs("l","friction","Absolute path to locs.tif",true,"/path/to/locs.tif","string");
+        TCLAP::ValueArg<std::string>demmand("d","friction","Absolute path to demmand.csv",true,"/path/to/demmand.csv","string");
+        // Add the argument nameArg to the CmdLine object. The CmdLine object
+        // uses this Arg to parse the command line.
+
+        cmd.add(friction);
+        cmd.add(locs);
+        cmd.add(demmand);
+
+        // Parse the argv array.
+        cmd.parse( argc, argv );
+
+        friction_map = friction.getValue();
+        demmand = demmand.getValue();
+        locsMap = locs.getValue();
+
+    }
+    catch (TCLAP::ArgException &e)  // catch any exceptions
+    {
+        std::cerr << "error: " << e.error() << " for arg " << e.argId() << std::endl;
+    }
 }
