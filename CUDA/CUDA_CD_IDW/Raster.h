@@ -1,3 +1,7 @@
+// Author: Ulises Olivares
+// uolivares@unam.mx
+// June 8, 2023
+
 #include "common.h"
 
 class Raster {

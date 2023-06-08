@@ -1,6 +1,8 @@
-//
-//
-//
+// Author: Ulises Olivares
+// uolivares@unam.mx
+// June 8, 2023
+
+
 #include "Raster.h"
 #include <sstream>
 #include <iostream>

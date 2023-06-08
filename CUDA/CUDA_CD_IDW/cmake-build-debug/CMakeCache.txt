@@ -196,6 +196,15 @@ CUDA_CD_IDW_BINARY_DIR:STATIC=/tmp/tmp.SIzVjb7fDF/cmake-build-debug
 CUDA_CD_IDW_SOURCE_DIR:STATIC=/tmp/tmp.SIzVjb7fDF
 
 //Path to a program.
+GDAL_CONFIG:FILEPATH=/usr/bin/gdal-config
+
+//Path to a file.
+GDAL_INCLUDE_DIR:PATH=/usr/include/gdal
+
+//Path to a library.
+GDAL_LIBRARY:FILEPATH=/usr/lib64/libgdal.so
+
+//Path to a program.
 ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 
 //Path to a program.
@@ -329,6 +338,10 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding GDAL
+FIND_PACKAGE_MESSAGE_DETAILS_GDAL:INTERNAL=[/usr/lib64/libgdal.so][/usr/include/gdal][v3.0.4()]
+//Details about finding OpenMP
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[c ][v()]
 //ADVANCED property for variable: ProcessorCount_cmd_nproc
 ProcessorCount_cmd_nproc-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl

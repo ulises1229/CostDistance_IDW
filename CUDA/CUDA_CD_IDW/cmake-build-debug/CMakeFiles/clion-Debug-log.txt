@@ -1,10 +1,4 @@
 /anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.SIzVjb7fDF -B /tmp/tmp.SIzVjb7fDF/cmake-build-debug
--- The CUDA compiler identification is NVIDIA 12.1.66
--- Detecting CUDA compiler ABI info
--- Detecting CUDA compiler ABI info - done
--- Check for working CUDA compiler: /usr/bin/nvcc - skipped
--- Detecting CUDA compile features
--- Detecting CUDA compile features - done
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /tmp/tmp.SIzVjb7fDF/cmake-build-debug

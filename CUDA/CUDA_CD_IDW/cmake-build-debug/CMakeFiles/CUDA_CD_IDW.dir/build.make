@@ -98,6 +98,7 @@ CUDA_CD_IDW_EXTERNAL_OBJECTS =
 
 CMakeFiles/CUDA_CD_IDW.dir/cmake_device_link.o: CMakeFiles/CUDA_CD_IDW.dir/main.cu.o
 CMakeFiles/CUDA_CD_IDW.dir/cmake_device_link.o: CMakeFiles/CUDA_CD_IDW.dir/build.make
+CMakeFiles/CUDA_CD_IDW.dir/cmake_device_link.o: /usr/lib64/libgdal.so
 CMakeFiles/CUDA_CD_IDW.dir/cmake_device_link.o: CMakeFiles/CUDA_CD_IDW.dir/dlink.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/tmp/tmp.SIzVjb7fDF/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CUDA device code CMakeFiles/CUDA_CD_IDW.dir/cmake_device_link.o"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CUDA_CD_IDW.dir/dlink.txt --verbose=$(VERBOSE)
@@ -116,6 +117,7 @@ CUDA_CD_IDW_EXTERNAL_OBJECTS =
 
 CUDA_CD_IDW: CMakeFiles/CUDA_CD_IDW.dir/main.cu.o
 CUDA_CD_IDW: CMakeFiles/CUDA_CD_IDW.dir/build.make
+CUDA_CD_IDW: /usr/lib64/libgdal.so
 CUDA_CD_IDW: CMakeFiles/CUDA_CD_IDW.dir/cmake_device_link.o
 CUDA_CD_IDW: CMakeFiles/CUDA_CD_IDW.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/tmp/tmp.SIzVjb7fDF/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CUDA executable CUDA_CD_IDW"
