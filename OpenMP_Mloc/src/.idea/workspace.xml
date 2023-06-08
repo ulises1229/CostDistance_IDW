@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -19,9 +19,33 @@
   <component name="ChangeListManager">
     <list default="true" id="7b2ea626-b4f1-41db-b3fd-999cbd01113c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Raster.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raster.h" beforeDir="false" afterPath="$PROJECT_DIR$/Raster.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/Arg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/ArgException.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/ArgTraits.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/CmdLine.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/CmdLineInterface.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/CmdLineOutput.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/Constraint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/DocBookOutput.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/HelpVisitor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/IgnoreRestVisitor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/Makefile.am" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/Makefile.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/MultiArg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/MultiSwitchArg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/OptionalUnlabeledTracker.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/StandardTraits.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/StdOutput.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/SwitchArg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/UnlabeledMultiArg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/UnlabeledValueArg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/ValueArg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/ValuesConstraint.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/VersionVisitor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/Visitor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/XorHandler.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/ZshCompletionOutput.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tclap/sstream.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,21 +82,28 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "true",
     "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true"
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP_Mloc/src",
+    "settings.editor.selected.configurable": "CPPToolchains"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager" selected="CMake Application.IDW_OpenMP">
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IDW_OpenMP" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="IDW_OpenMP" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" PROGRAM_PARAMS="-f /home/ulises/Kenya1km/fricc_v.tif -d /home/ulises/Kenya1km/BaU_vehicle.csv -l /home/ulises/Kenya1km/locs_c.tif" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -132,7 +163,8 @@
       <workItem from="1663213637637" duration="15577000" />
       <workItem from="1663391411851" duration="136000" />
       <workItem from="1663686478350" duration="21243000" />
-      <workItem from="1664042423596" duration="1679000" />
+      <workItem from="1664042423596" duration="10967000" />
+      <workItem from="1667349827701" duration="3717000" />
     </task>
     <servers />
   </component>
@@ -155,12 +187,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>210</line>
+          <line>222</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>165</line>
+          <line>176</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>

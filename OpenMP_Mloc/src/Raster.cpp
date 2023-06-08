@@ -147,7 +147,7 @@ vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
         }
     }
 
-    // Read data, line by line
+    // Read data, row by row
     while(getline(myFile, line))
     {
         // Create a stringstream of the current line
@@ -156,7 +156,7 @@ vector<pair<string, vector<float>>> Raster::loadDemmand(string name){
         // Keep track of the current column index
         int colIdx = 0;
 
-        // Extract each integer
+        // Extract each integer (locality ID)
         while(ss >> val){
 
             // Add the current integer to the 'colIdx' column's values vector
