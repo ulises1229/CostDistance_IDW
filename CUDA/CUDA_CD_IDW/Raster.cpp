@@ -50,7 +50,7 @@ float* Raster::importRaster(std::string name, int &rows, int &cols, float &scale
 }
 //-------------------------------------------------------------------------------------------------------------------------
 void Raster::printRaster(float *matrix, int rows, int cols) {
-    printf("Imprimiento matriz \n");
+    printf("Printing matrix \n");
     for(int row=0; row< rows; row++){
         for(int col =0; col < cols; col++){
             printf(" %f ",matrix[(cols*row)+col]);
