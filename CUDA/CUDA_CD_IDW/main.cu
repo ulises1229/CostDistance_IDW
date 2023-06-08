@@ -86,11 +86,11 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     cout << "Total number of localities " << locsNum << endl;
 
     // Biomass requirement
-    /*map<int, float> requiredBiomass;
+    map<int, float> requiredBiomass;
     for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
         requiredBiomass.insert(pair<int, float>(int(demmand[0].second[loc]), float(demmand[year].second[loc]))); //load demmand in tons
         cout<< requiredBiomass
-    }*/
+    }
 
 
 
