@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
 }</component>
@@ -13,39 +16,70 @@
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration PROFILE_NAME="Release" ENABLED="true" GENERATION_DIR="cmake-build-release" CONFIG_NAME="Release" />
+      <configuration PROFILE_NAME="Release-Mofuss" ENABLED="true" GENERATION_DIR="cmake-build-release" CONFIG_NAME="Release" TOOLCHAIN_NAME="Mofuss" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b2ea626-b4f1-41db-b3fd-999cbd01113c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/Arg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/ArgException.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/ArgTraits.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/CmdLine.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/CmdLineInterface.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/CmdLineOutput.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/Constraint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/DocBookOutput.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/HelpVisitor.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/IgnoreRestVisitor.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/Makefile.am" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/Makefile.in" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/MultiArg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/MultiSwitchArg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/OptionalUnlabeledTracker.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/StandardTraits.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/StdOutput.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/SwitchArg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/UnlabeledMultiArg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/UnlabeledValueArg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/ValueArg.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/ValuesConstraint.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/VersionVisitor.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/Visitor.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/XorHandler.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/ZshCompletionOutput.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tclap/sstream.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/cache-v2-0a5bebbe0f3d6036516f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/cache-v2-b07991953df5122be19d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/cmakeFiles-v1-0000ff3478048d784a0a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/cmakeFiles-v1-3015177f91ff497e3ef2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/cmakeFiles-v1-93564d11b5da4961aa04.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/codemodel-v2-73c5ae1ca088edefb940.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/codemodel-v2-d026975d68c2dfdee1e8.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/directory-.-Release-f5ebdc15457944623624.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/index-2022-10-03T16-21-08-0443.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/index-2022-11-03T04-04-12-0353.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/index-2022-11-03T04-05-47-0468.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/target-IDW_OpenMP-Release-cbc5180a595d0d574a69.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/target-IDW_OpenMP-Release-f5fc26317d8b83acea05.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/toolchains-v1-c5b5b9eb3c091c40af91.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/toolchains-v1-d11f12da7a061ba91374.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.20.2/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.20.2/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.20.2/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.20.2/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.20.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CompilerIdC/CMakeCCompilerId.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/3.23.2/CompilerIdCXX/CMakeCXXCompilerId.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeError.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/compiler_depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/compiler_depend.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/IDW_OpenMP.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Progress/1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Progress/2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Progress/3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Progress/count.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/IDW_OpenMP.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/IDW_OpenMP.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common.h" beforeDir="false" afterPath="$PROJECT_DIR$/common.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +89,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release-Mofuss" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -84,6 +118,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "last_opened_file_path": "/Users/uolivares/Documents/GitHub/CostDistance_IDW/OpenMP_Mloc/src",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "CPPToolchains"
   }
 }]]></component>
@@ -92,29 +127,35 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.IDW_OpenMP">
+  <component name="RunManager" selected="CMake Application.IDW">
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IDW_OpenMP" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" PROGRAM_PARAMS="-f /home/ulises/Kenya1km/fricc_v.tif -d /home/ulises/Kenya1km/BaU_vehicle.csv -l /home/ulises/Kenya1km/locs_c.tif" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
+    <configuration name="IDW" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release-Mofuss" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="debug" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IDW_OpenMP" TARGET_NAME="IDW_OpenMP" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP">
+    <configuration name="IDW_OpenMP" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" PROGRAM_PARAMS="-f /home/ulises/Kenya1km/fricc_v.tif -d /home/ulises/Kenya1km/BaU_vehicle.csv -l /home/ulises/Kenya1km/locs_c.tif" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release-Mofuss" RUN_TARGET_PROJECT_NAME="IDW_OpenMP" RUN_TARGET_NAME="IDW_OpenMP" EXPLICIT_BUILD_TARGET_NAME="all">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="debug" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Release-Mofuss" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="CMake Application.IDW_OpenMP" />
+      <item itemvalue="CMake Application.IDW" />
       <item itemvalue="CMake Application.debug" />
     </list>
   </component>
@@ -164,7 +205,14 @@
       <workItem from="1663391411851" duration="136000" />
       <workItem from="1663686478350" duration="21243000" />
       <workItem from="1664042423596" duration="10967000" />
-      <workItem from="1667349827701" duration="3717000" />
+      <workItem from="1667349827701" duration="4032000" />
+      <workItem from="1667516863175" duration="600000" />
+      <workItem from="1677978698692" duration="1995000" />
+      <workItem from="1678072339273" duration="585000" />
+      <workItem from="1678072957884" duration="112000" />
+      <workItem from="1678073708692" duration="226000" />
+      <workItem from="1678078626763" duration="1022000" />
+      <workItem from="1678081850374" duration="124000" />
     </task>
     <servers />
   </component>

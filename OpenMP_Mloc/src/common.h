@@ -22,7 +22,7 @@
 //.................................OpenMP
 #include <omp.h>
 #include <limits>
-//---------------------------------mapas
+//---------------------------------maps
 #include <utility>
 #include <map>
 #include <iomanip>
