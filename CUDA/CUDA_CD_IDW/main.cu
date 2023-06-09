@@ -21,6 +21,7 @@ typedef struct locality{
     int row;
     int col;
     int num_local;
+    float demand;
 }locality;
 
 // Methods definition
@@ -28,7 +29,7 @@ void parseParameters(int argc, const char** argv);
 void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string scenario);
 float* importRaster(string name, int &rows, int &cols, float &scale, int &cell_null);
 vector<pair<string, vector<float>>> loadDemmand(string name);
-int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null);
+int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null, vector<pair<string, vector<float>>> demand);
 float* resetMatrix(int rows,  int cols, float val1);
 
 //Global variable definition
@@ -62,35 +63,72 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     // Variable declaration
     int rows, cols, nullValue = 0, locsNum= 0;
     float scale;// map scale
-    vector<pair<string, vector<float>>> demmand;// Vector to store demand of all years
+    vector<pair<string, vector<float>>> demand;// Vector to store demand of all years
     map<int, locality> localities;// map of localities
     const int moves[2][8]={{1, 1, 0, -1, -1, -1, 0,  1},{0, 1, 1, 1,  0,  -1, -1, -1}}; // all possible combinations of movements in a map including diagonals
 
 
     //Import friction matrix
     float* fric_matrix, *locsMatrix, *IDW_matrix; //matrices to store input/output data
-    IDW_matrix = resetMatrix(rows, cols, 0);
 
+    // Import friction raster
     fric_matrix = importRaster(frictionMap, rows, cols, scale, nullValue);
 
-    // Localities map
+    // Initializar IDWMatrix with 0's
+    IDW_matrix = resetMatrix(rows, cols, 0);
+
+    // Import Localities map
     locsMatrix = importRaster(locsMap, rows, cols, scale, nullValue);
 
-    //cout <<"Loading demmand..." << endl;
-    // Load demmand per year
-    demmand = loadDemmand(demmandFile);
+    //cout <<"Loading demand..." << endl;
+    // Load demand per year
+    demand = loadDemmand(demmandFile);
 
 
-    // count the number of locs
-    locsNum = readLocalities(locsMatrix, rows, cols, localities, nullValue);
+    // count the number of localities
+    locsNum = readLocalities(locsMatrix, rows, cols, localities, nullValue, demand);
     cout << "Total number of localities " << locsNum << endl;
 
     // Biomass requirement
     map<int, float> requiredBiomass;
-    for(int loc=0; loc < demmand[0].second.size();loc++){ // Tamaño de localidades
-        requiredBiomass.insert(pair<int, float>(int(demmand[0].second[loc]), float(demmand[year].second[loc]))); //load demmand in tons
-        cout<< requiredBiomass
+    for(int year= 1; year < demand.size(); year++){
+        for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
+            requiredBiomass.insert(pair<int, float>(int(demand[0].second[loc]), float(demand[year].second[loc])));//load demand in tons
+        }
     }
+
+    // 1) Declare host variables
+    float* d_fric_matrix, * d_locsMatrix, *d_IDW_matrix;
+
+    size_t  size = rows * cols *sizeof(float);
+
+
+    // 2) Allocate device memory
+    cudaError_t cudaStatus = cudaMalloc((void**)&d_fric_matrix, size);
+    cudaStatus = cudaMalloc((void**)&d_locsMatrix, size);
+    cudaStatus = cudaMalloc((void**)&d_IDW_matrix, size);
+    //cudaError_t cudaStatus = cudaMalloc((void**)&d_IDW_matrix, size);
+
+    //TODO: validate each device memory allocation
+    if (cudaStatus != cudaSuccess) {
+        cout<< "Error in cuda memory allocation: " << cudaStatus << endl;
+    }
+
+    // 3) Copy data from host  to devide IDW, fric, locs
+    cudaMemcpy(d_fric_matrix, fric_matrix, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_fric_matrix, d_locsMatrix, size, cudaMemcpyHostToDevice); // Not necessary
+    cudaMemcpy(d_fric_matrix, d_IDW_matrix, size, cudaMemcpyHostToDevice);
+
+
+    // 4) Instantiate the Kernel
+
+    // 5) Copy memory from device
+
+    // 6) free cuda mem
+
+    cudaFree(d_fric_matrix);
+    cudaFree(d_locsMatrix);
+    cudaFree(d_IDW_matrix);
 
 
 
@@ -118,7 +156,7 @@ float* resetMatrix(int rows, int cols, float val1){
  * This function counts the number of localities in a map
  * TODO: this might be unnecesary in future releases.
  */
-int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null) {
+int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null, vector<pair<string, vector<float>>> demand) {
     //cout << "Enter to readLocs" << endl;
     locality array;
     int countLoc = 0;
@@ -129,6 +167,16 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
                 //    break;
                 array.row = row;
                 array.col = col;
+
+                // TODO: Fix this part
+                for (int year = 1;year <  demand.size();year++){
+                    for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
+                        int id =  int(demand[0].second[loc]);
+                        float d = float(demand[year].second[loc]);//load demand in tons
+                    }
+                }
+
+                array.demand = ;//add demmand
                 local_ord[(int) map_local[(cols * row) + col]] = array;
                 countLoc++;
             }
@@ -189,7 +237,7 @@ vector<pair<string, vector<float>>> loadDemmand(string name){
         int colIdx = 0;
 
         while(getline(ss, value, ',')){
-            cout << value << endl;
+            //cout << value << endl;
             // Convert first value to numeric
             if(colIdx == 0)
                 value.erase(remove(value.begin(), value.end(), '"'), value.end()); // remove special " char.
