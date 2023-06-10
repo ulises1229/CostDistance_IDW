@@ -20,7 +20,7 @@
 typedef struct locality{
     int row;
     int col;
-    int num_local;
+    int ID;
     float demand;
 }locality;
 
@@ -169,14 +169,14 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
                 array.col = col;
 
                 // TODO: Fix this part
-                for (int year = 1;year <  demand.size();year++){
+                for (int year = 1;year < demand.size();year++){
                     for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
                         int id =  int(demand[0].second[loc]);
                         float d = float(demand[year].second[loc]);//load demand in tons
                     }
                 }
 
-                array.demand = ;//add demmand
+                //array.demand = ;//add demmand
                 local_ord[(int) map_local[(cols * row) + col]] = array;
                 countLoc++;
             }
