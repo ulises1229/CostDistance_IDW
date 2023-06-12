@@ -24,11 +24,17 @@ typedef struct locality{
     float demand;
 }locality;
 
+typedef struct localities{
+    int year;
+    locality * locs;
+}localities;
+
 // Methods definition
 void parseParameters(int argc, const char** argv);
 void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string scenario);
 float* importRaster(string name, int &rows, int &cols, float &scale, int &cell_null);
-vector<pair<string, vector<float>>> loadDemmand(string name);
+float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs);
+vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix);
 int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null, vector<pair<string, vector<float>>> demand);
 float* resetMatrix(int rows,  int cols, float val1);
 
@@ -78,24 +84,25 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     IDW_matrix = resetMatrix(rows, cols, 0);
 
     // Import Localities map
-    locsMatrix = importRaster(locsMap, rows, cols, scale, nullValue);
+    long long int locs=0;
+    locsMatrix = importLocsRaster(locsMap, rows, cols, scale, nullValue, locs);
 
     //cout <<"Loading demand..." << endl;
     // Load demand per year
-    demand = loadDemmand(demmandFile);
+    demand = loadDemmand(demmandFile, locsMatrix);
 
 
     // count the number of localities
     locsNum = readLocalities(locsMatrix, rows, cols, localities, nullValue, demand);
-    cout << "Total number of localities " << locsNum << endl;
+    cout << "Total number of localities " << locs <<" " << locsNum << endl;
 
     // Biomass requirement
-    map<int, float> requiredBiomass;
+    /*map<int, float> requiredBiomass;
     for(int year= 1; year < demand.size(); year++){
         for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
             requiredBiomass.insert(pair<int, float>(int(demand[0].second[loc]), float(demand[year].second[loc])));//load demand in tons
         }
-    }
+    }*/
 
     // 1) Declare host variables
     float* d_fric_matrix, * d_locsMatrix, *d_IDW_matrix;
@@ -160,6 +167,8 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
     //cout << "Enter to readLocs" << endl;
     locality array;
     int countLoc = 0;
+
+
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
             if (map_local[(cols * row) + col] != cell_null) {
@@ -167,12 +176,24 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
                 //    break;
                 array.row = row;
                 array.col = col;
+                //cout << "raster ID :" << map_local[(cols * row) + col] <<endl;
 
-                // TODO: Fix this part
+                int rasterID = int(map_local[(cols * row) + col]);
+
+                // [1] -> year 1
+                float rasterDem = demand[1].second[rasterID];
+
+
+
+
+
+
                 for (int year = 1;year < demand.size();year++){
                     for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
                         int id =  int(demand[0].second[loc]);
+                        //cout << "Id: " << id <<" ";
                         float d = float(demand[year].second[loc]);//load demand in tons
+                        //cout << "Demand: " << d << endl;
                     }
                 }
 
@@ -190,7 +211,9 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
  * Input: CSV filename
  * Output: a vector with ID and demmand per year.
  */
-vector<pair<string, vector<float>>> loadDemmand(string name){
+
+vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
+    //localities * result2 = new ;
     vector<pair<string, vector<float>>> result;
     // Create an input filestream
     std::ifstream myFile(name);
@@ -204,7 +227,7 @@ vector<pair<string, vector<float>>> loadDemmand(string name){
     string line, colname, value;
    // float val;
 
-    // Read the column names
+    // Step 1) Read the column names
     if(myFile.good())
     {
         // Extract the first line in the file
@@ -227,22 +250,30 @@ vector<pair<string, vector<float>>> loadDemmand(string name){
         exit(0);
     }
 
-    // Read data, row by row
+    // Step 2) Read data, row by rows
     while(getline(myFile, line))
     {
         // Create a stringstream of the current line
         stringstream ss(line);
 
         // Keep track of the current column index
-        int colIdx = 0;
-
+        int colIdx = 0, id;
         while(getline(ss, value, ',')){
             //cout << value << endl;
             // Convert first value to numeric
-            if(colIdx == 0)
+            if(colIdx == 0){
                 value.erase(remove(value.begin(), value.end(), '"'), value.end()); // remove special " char.
+                id = stoi(value);
+            } // Remove values only for the first element
+
+
+            // TODO: complete into a single structure all data:
+            // ID, x, y, demand, year
+            //result2[colIdx]
+
             // Add value to vector
             result.at(colIdx).second.push_back(stof(value));
+
             // If the next token is a comma, ignore it and move on
             if(ss.peek() == ',') ss.ignore();
             // Increment the column index
@@ -292,6 +323,51 @@ float* importRaster(std::string name, int &rows, int &cols, float &scale, int &c
             matrix[(cols*row)+col] = *(pBuf+location);
         }
     //cout<<"valor nulo: "<< cell_null<< endl;
+    return matrix;
+
+}
+
+float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs){
+    int row,col;//iteradores matriz
+    GDALDataset *dataset;
+    GDALAllRegister();
+    string ds = name;
+    dataset = (GDALDataset *) GDALOpen(ds.c_str(), GA_ReadOnly);
+    GDALRasterBand  *poBand;
+
+    poBand = dataset->GetRasterBand(1);
+    dataset->GetGeoTransform( adfGeoTransform );
+
+    projection = dataset->GetProjectionRef();
+
+    cols = poBand->GetXSize();
+    rows= poBand->GetYSize();
+    scale = adfGeoTransform[1];
+
+    dataset->GetGeoTransform( adfGeoTransform );
+    scale = adfGeoTransform[1];
+    cell_null = poBand->GetNoDataValue();  //read null value of cell
+    float *matrix = new float[rows * cols];
+    float *pBuf = new float[rows * cols];
+
+    if (poBand->RasterIO(GF_Read, 0, 0, cols, rows, pBuf, cols, rows, GDT_Float32, 0, 0) == 0)
+        cout << name << " raster imported sucessfully!" << endl;
+    else
+        cout << "An error occurred during the importation process! " << endl;
+
+    int location;
+    for (row = 0; row < rows; row++)
+        for ( col = 0; col < cols; col++){
+            location = (cols * (row)) + col;
+            matrix[(cols*row)+col] = *(pBuf+location);
+
+            if (matrix[(cols*row)+col] != cell_null && matrix[(cols*row)+col] != 0){
+                //cout << "mat: " <<matrix[(cols*row)+col]<< endl;
+                countLocs++;
+            }
+
+        }
+    //cout<<"Total locs: "<< countLocs<< endl;
     return matrix;
 
 }
