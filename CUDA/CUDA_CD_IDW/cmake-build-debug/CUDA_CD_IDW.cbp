@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/tmp/tmp.lCahdvsjfP/cmake-build-debug"/>
+				<Option working_dir="/tmp/tmp.DsolRgl8lS/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/tmp/tmp.lCahdvsjfP/cmake-build-debug"/>
+				<Option working_dir="/tmp/tmp.DsolRgl8lS/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/tmp/tmp.lCahdvsjfP/cmake-build-debug"/>
+				<Option working_dir="/tmp/tmp.DsolRgl8lS/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="CUDA_CD_IDW">
-				<Option output="/tmp/tmp.lCahdvsjfP/cmake-build-debug/CUDA_CD_IDW" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/tmp/tmp.lCahdvsjfP/cmake-build-debug"/>
+				<Option output="/tmp/tmp.DsolRgl8lS/cmake-build-debug/CUDA_CD_IDW" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.DsolRgl8lS/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -47,15 +47,15 @@
 					<Add directory="/usr/include/gdal"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 CUDA_CD_IDW"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 CUDA_CD_IDW"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="CUDA_CD_IDW/fast">
-				<Option output="/tmp/tmp.lCahdvsjfP/cmake-build-debug/CUDA_CD_IDW" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/tmp/tmp.lCahdvsjfP/cmake-build-debug"/>
+				<Option output="/tmp/tmp.DsolRgl8lS/cmake-build-debug/CUDA_CD_IDW" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.DsolRgl8lS/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -63,23 +63,23 @@
 					<Add directory="/usr/include/gdal"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 CUDA_CD_IDW/fast"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.lCahdvsjfP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 CUDA_CD_IDW/fast"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/tmp/tmp.DsolRgl8lS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/tmp/tmp.lCahdvsjfP/Raster.cpp">
+		<Unit filename="/tmp/tmp.DsolRgl8lS/Raster.cpp">
 			<Option target="CUDA_CD_IDW"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.lCahdvsjfP/Raster.h">
+		<Unit filename="/tmp/tmp.DsolRgl8lS/Raster.h">
 			<Option target="CUDA_CD_IDW"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.lCahdvsjfP/main.cu">
+		<Unit filename="/tmp/tmp.DsolRgl8lS/main.cu">
 			<Option target="CUDA_CD_IDW"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.lCahdvsjfP/CMakeLists.txt">
+		<Unit filename="/tmp/tmp.DsolRgl8lS/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

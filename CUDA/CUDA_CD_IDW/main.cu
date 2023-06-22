@@ -163,7 +163,6 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
     locality array;
     int countLoc = 0;
 
-
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
             if (map_local[(cols * row) + col] != cell_null) {
@@ -173,22 +172,18 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
                 array.col = col;
                 //cout << "raster ID :" << map_local[(cols * row) + col] <<endl;
 
-                int rasterID = int(map_local[(cols * row) + col]);
-
-                // [1] -> year 1
-                float rasterDem = demand[1].second[rasterID];
-
+                int rasterID = int(map_local[(cols * row) + col]); //rasterized map
 
                 for (int year = 1;year < demand.size();year++){
                     for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
-                        int id =  int(demand[0].second[loc]);
+                        array.ID =  int(demand[0].second[loc]);
                         //cout << "Id: " << id <<" ";
-                        float d = float(demand[year].second[loc]);//load demand in tons
+                        array.demand = float(demand[year].second[loc]);//load demand in tons
                         //cout << "Demand: " << d << endl;
                     }
                 }
-
                 //array.demand = ;//add demmand
+                // modify this
                 local_ord[(int) map_local[(cols * row) + col]] = array;
                 countLoc++;
             }
@@ -196,7 +191,6 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
     }
     return countLoc;
 }
-
 /*
  * This function reads localities from a CSV file and stores their demmand per year.
  * Input: CSV filename
