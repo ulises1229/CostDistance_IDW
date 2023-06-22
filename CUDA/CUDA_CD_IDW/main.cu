@@ -137,12 +137,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     cudaFree(d_locsMatrix);
     cudaFree(d_IDW_matrix);
 
-
-
     // TODO: start the parallel calculation of CD
-
-
-
 }
 
 /*
@@ -184,10 +179,6 @@ int readLocalities(float *map_local, int rows, int cols, map<int,locality> &loca
                 float rasterDem = demand[1].second[rasterID];
 
 
-
-
-
-
                 for (int year = 1;year < demand.size();year++){
                     for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
                         int id =  int(demand[0].second[loc]);
@@ -223,7 +214,7 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
         throw runtime_error("Could not open file");
 
 
-    // Helper vars
+    // Helper variables
     string line, colname, value;
    // float val;
 
