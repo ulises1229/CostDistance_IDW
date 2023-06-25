@@ -26,7 +26,7 @@ typedef struct locality{
 
 typedef struct localities{
     int year;
-    locality * locs;
+    locality * locsArray;
 }localities;
 
 // Methods definition
@@ -160,35 +160,38 @@ float* resetMatrix(int rows, int cols, float val1){
  */
 int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null, vector<pair<string, vector<float>>> demand) {
     //cout << "Enter to readLocs" << endl;
-    locality array;
+
     int countLoc = 0;
+    localities * locs;
 
-    for (int row = 0; row < rows; row++) {
-        for (int col = 0; col < cols; col++) {
-            if (map_local[(cols * row) + col] != cell_null) {
-                //if (countLoc == 1)
-                //    break;
-                array.row = row;
-                array.col = col;
-                //cout << "raster ID :" << map_local[(cols * row) + col] <<endl;
-
-                int rasterID = int(map_local[(cols * row) + col]); //rasterized map
-
-                for (int year = 1;year < demand.size();year++){
-                    for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
-                        array.ID =  int(demand[0].second[loc]);
-                        //cout << "Id: " << id <<" ";
-                        array.demand = float(demand[year].second[loc]);//load demand in tons
-                        //cout << "Demand: " << d << endl;
+    //int rasterID = int(map_local[(cols * row) + col]); //rasterized map
+    for (int year = 1;year < demand.size();year++){
+        locality loc;
+        locs->year = year;
+        for(int locNum=0; locNum < demand[0].second.size(); locNum++){ // Tamaño de localidades
+            loc.ID =  int(demand[0].second[locNum]);
+            loc.demand = float(demand[year].second[locNum]);//load demand in tons
+            //cout << "Demand: " << d << endl;
+            // TODO: search the loc.ID to retrieve the row and col values
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
+                    if(map_local[(cols * row) + col] == loc.ID){
+                        loc.row = row;
+                        loc.col = col;
+                        // Asign loc to locs
+                        countLoc++;
+                        goto foundLoc;
                     }
+
                 }
-                //array.demand = ;//add demmand
-                // modify this
-                local_ord[(int) map_local[(cols * row) + col]] = array;
-                countLoc++;
             }
+            foundLoc:
         }
     }
+    //array.demand = ;//add demmand
+    // modify this
+    // local_ord[(int) map_local[(cols * row) + col]] = array;
+
     return countLoc;
 }
 /*
@@ -381,7 +384,7 @@ void parseParameters(int argc, const char** argv){
         TCLAP::ValueArg<std::string>demmandw("3","demmandWalking","Absolute path to demmand.csv for walking scenario",true,"/path/to/demmand.csv","string");
 
         TCLAP::ValueArg<std::string>frictionv("4","frictionVehicle","Absolute path to friction.tif for vehicle scenario",true,"/path/to/friction.tif","string");
-        TCLAP::ValueArg<std::string>locsv("5","locsVehicle","Absolute path to locs.tif for vehicle scenario",true,"/path/to/locs.tif","string");
+        TCLAP::ValueArg<std::string>locsv("5","locsVehicle","Absolutse path to locs.tif for vehicle scenario",true,"/path/to/locs.tif","string");
         TCLAP::ValueArg<std::string>demmandv("6","demmandVehicle","Absolute path to demmand.csv for vehicle scenario",true,"/path/to/demmand.csv","string");
 
         TCLAP::ValueArg<std::string>relative("r","relative","1 to friction relative, 0 otherwise",true,"1 to friction relative, 0 otherwise","string");

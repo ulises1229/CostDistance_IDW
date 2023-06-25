@@ -1,4 +1,4 @@
-/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.DsolRgl8lS -B /tmp/tmp.DsolRgl8lS/cmake-build-debug
+/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.rebd5XbYHH -B /tmp/tmp.rebd5XbYHH/cmake-build-debug
 -- The CUDA compiler identification is NVIDIA 12.1.66
 -- Detecting CUDA compiler ABI info
 -- Detecting CUDA compiler ABI info - done
@@ -8,4 +8,11 @@
 -- Found GDAL: /usr/lib64/libgdal.so (found version "3.0.4") 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /tmp/tmp.DsolRgl8lS/cmake-build-debug
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_CXX_COMPILER
+    CMAKE_C_COMPILER
+
+
+-- Build files have been written to: /tmp/tmp.rebd5XbYHH/cmake-build-debug
