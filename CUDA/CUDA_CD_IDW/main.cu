@@ -35,7 +35,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 float* importRaster(string name, int &rows, int &cols, float &scale, int &cell_null);
 float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs);
 vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix);
-int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null, vector<pair<string, vector<float>>> demand);
+int readLocalities(float *map_local, int rows, int cols, localities *locs, int cell_null, vector<pair<string, vector<float>>> demand);
 float* resetMatrix(int rows,  int cols, float val1);
 
 //Global variable definition
@@ -70,7 +70,8 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     int rows, cols, nullValue = 0, locsNum= 0;
     float scale;// map scale
     vector<pair<string, vector<float>>> demand;// Vector to store demand of all years
-    map<int, locality> localities;// map of localities
+    //map<int, locality> localities;// map of localities
+    localities *locs;
     const int moves[2][8]={{1, 1, 0, -1, -1, -1, 0,  1},{0, 1, 1, 1,  0,  -1, -1, -1}}; // all possible combinations of movements in a map including diagonals
 
 
@@ -84,8 +85,8 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     IDW_matrix = resetMatrix(rows, cols, 0);
 
     // Import Localities map
-    long long int locs=0;
-    locsMatrix = importLocsRaster(locsMap, rows, cols, scale, nullValue, locs);
+    long long int numLocs=0;
+    locsMatrix = importLocsRaster(locsMap, rows, cols, scale, nullValue, numLocs);
 
     //cout <<"Loading demand..." << endl;
     // Load demand per year
@@ -93,7 +94,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 
 
     // count the number of localities
-    locsNum = readLocalities(locsMatrix, rows, cols, localities, nullValue, demand);
+    locsNum = readLocalities(locsMatrix, rows, cols, locs, nullValue, demand);
     cout << "Total number of localities " << locs <<" " << locsNum << endl;
 
     // Biomass requirement
@@ -158,42 +159,37 @@ float* resetMatrix(int rows, int cols, float val1){
  * This function counts the number of localities in a map
  * TODO: this might be unnecesary in future releases.
  */
-int readLocalities(float *map_local, int rows, int cols, map<int,locality> &local_ord, int cell_null, vector<pair<string, vector<float>>> demand) {
+int readLocalities(float *map_local, int rows, int cols, localities *locs, int cell_null, vector<pair<string, vector<float>>> demand) {
     //cout << "Enter to readLocs" << endl;
 
-    int countLoc = 0;
-    localities * locs;
+    int countLoc = demand[0].second.size();
+    locs = (localities*)malloc(demand.size() * sizeof(localities));
 
     //int rasterID = int(map_local[(cols * row) + col]); //rasterized map
+
     for (int year = 1;year < demand.size();year++){
-        locality loc;
-        locs->year = year;
+        locs[year].year = year;
+        locs[year].locsArray = (locality*)malloc(demand[0].second.size() * sizeof(locality));
         for(int locNum=0; locNum < demand[0].second.size(); locNum++){ // Tamaño de localidades
+            locality loc;
             loc.ID =  int(demand[0].second[locNum]);
             loc.demand = float(demand[year].second[locNum]);//load demand in tons
-            //cout << "Demand: " << d << endl;
-            // TODO: search the loc.ID to retrieve the row and col values
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
                     if(map_local[(cols * row) + col] == loc.ID){
                         loc.row = row;
                         loc.col = col;
-                        // Asign loc to locs
-                        countLoc++;
+                        locs[year].locsArray[locNum] = loc;
                         goto foundLoc;
                     }
-
                 }
             }
             foundLoc:
         }
     }
-    //array.demand = ;//add demmand
-    // modify this
-    // local_ord[(int) map_local[(cols * row) + col]] = array;
-
     return countLoc;
 }
+
 /*
  * This function reads localities from a CSV file and stores their demmand per year.
  * Input: CSV filename
@@ -253,11 +249,6 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
                 value.erase(remove(value.begin(), value.end(), '"'), value.end()); // remove special " char.
                 id = stoi(value);
             } // Remove values only for the first element
-
-
-            // TODO: complete into a single structure all data:
-            // ID, x, y, demand, year
-            //result2[colIdx]
 
             // Add value to vector
             result.at(colIdx).second.push_back(stof(value));
