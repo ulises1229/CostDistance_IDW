@@ -1,0 +1,11 @@
+/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.7lcACLr7xv -B /tmp/tmp.7lcACLr7xv/cmake-build-release
+-- The CUDA compiler identification is NVIDIA 12.1.66
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found GDAL: /usr/lib64/libgdal.so (found version "3.0.4") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/tmp.7lcACLr7xv/cmake-build-release

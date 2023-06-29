@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CUDA
-  "/tmp/tmp.7lcACLr7xv/main.cu" "/tmp/tmp.7lcACLr7xv/cmake-build-debug/CMakeFiles/CUDA_CD_IDW.dir/main.cu.o"
+  "/tmp/tmp.7lcACLr7xv/main.cu" "/tmp/tmp.7lcACLr7xv/cmake-build-release/CMakeFiles/CUDA_CD_IDW.dir/main.cu.o"
   )
 set(CMAKE_CUDA_COMPILER_ID "NVIDIA")
 

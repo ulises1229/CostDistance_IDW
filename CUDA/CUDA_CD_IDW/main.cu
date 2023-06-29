@@ -88,7 +88,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     long long int numLocs=0;
     locsMatrix = importLocsRaster(locsMap, rows, cols, scale, nullValue, numLocs);
 
-    //cout <<"Loading demand..." << endl;
+    cout <<"Loading demand..." << endl;
     // Load demand per year
     demand = loadDemmand(demmandFile, locsMatrix);
 
@@ -96,6 +96,17 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     // count the number of localities
     locsNum = readLocalities(locsMatrix, rows, cols, locs, nullValue, demand);
     cout << "Total number of localities " << locs <<" " << locsNum << endl;
+
+    int years = sizeof(locs)/ sizeof(localities);
+
+    cout << years <<endl;
+
+    for(int i = 0; i < years; i++){
+        cout << "Year: " << locs[i].year << endl;
+        /*for(int j = 0; j < locs[year].second.size(); j++)
+        {
+        }*/
+    }
 
     // Biomass requirement
     /*map<int, float> requiredBiomass;
