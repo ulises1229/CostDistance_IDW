@@ -1,3 +1,0 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.vO3Hp39mJS -B /tmp/tmp.vO3Hp39mJS/cmake-build-release
-CMake Error: The source directory "/tmp/tmp.vO3Hp39mJS" does not appear to contain CMakeLists.txt.
-Specify --help for usage, or press the help button on the CMake GUI.

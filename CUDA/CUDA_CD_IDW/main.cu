@@ -95,19 +95,32 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 
     // count the number of localities
     locsNum = readLocalities(locsMatrix, rows, cols, locs, nullValue, demand);
-    cout << "Total number of localities " << locs <<" " << locsNum << endl;
+    cout << "Total number of localities " <<" " << locsNum << endl;
 
-    int years = sizeof(locs)/ sizeof(localities);
 
-    cout << years <<endl;
+    int sizeLocs = demand.size() * sizeof(localities);
 
-    for(int i = 0; i < years; i++){
-        cout << "Year: " << locs[i].year << endl;
-        /*for(int j = 0; j < locs[year].second.size(); j++)
-        {
-        }*/
+    cout << demand.size() <<endl;
+
+    for (int i = 0; i < demand.size()-2; i++) {
+        localities* currentLocs = &locs[i];
+        int year = currentLocs->year;
+        locality* locsArray = currentLocs->locsArray;
+
+        // Iterate over the localities within the current localities struct
+        for (int j = 0; j < locsNum; j++) {
+            locality* currentLocality = &locsArray[j];
+            // Access and work with the current locality
+            int row = currentLocality->row;
+            int col = currentLocality->col;
+            int ID = currentLocality->ID;
+            float demand = currentLocality->demand;
+
+            cout << ID << "=>" << demand << endl;
+
+            // ... do something with row, col, ID, and demand
+        }
     }
-
     // Biomass requirement
     /*map<int, float> requiredBiomass;
     for(int year= 1; year < demand.size(); year++){
@@ -174,15 +187,56 @@ int readLocalities(float *map_local, int rows, int cols, localities *locs, int c
     //cout << "Enter to readLocs" << endl;
 
     int countLoc = demand[0].second.size();
-    locs = (localities*)malloc(demand.size() * sizeof(localities));
+    //locs = (localities*)malloc(demand.size() * sizeof(localities));
+    int size = demand.size()-2;
+    locs = new localities [size];
 
     //int rasterID = int(map_local[(cols * row) + col]); //rasterized map
 
-    for (int year = 1;year < demand.size();year++){
+    for (int year = 1; year < demand.size()-2; year++) {
+        locs[year-1].year = year;
+        locs[year-1].locsArray = new locality[demand[0].second.size()];
+        int locTmp = 0;
+        for (int locNum = 0; locNum < demand[0].second.size(); locNum++) {
+            bool foundLoc = false;
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
+                    int ID = map_local[(cols * row) + col];
+                    if (map_local[(cols * row) + col] == demand[0].second[locNum]) {
+                        // Locality was found in the locs tif raster add data to structure
+                        locs[year-1].locsArray[locTmp].ID =static_cast<int>(demand[0].second[locNum]);
+                        locs[year-1].locsArray[locTmp].demand = static_cast<float>(demand[year].second[locNum]);
+                        locs[year-1].locsArray[locTmp].row = row;
+                        locs[year-1].locsArray[locTmp].col = col;
+                        foundLoc = true;
+                        break;
+                    }
+                }
+                if (foundLoc) {
+                    /*cout << locs[year-1].year << " => " << locs[year-1].locsArray[locTmp].ID << " => "
+                         << locs[year-1].locsArray[locTmp].demand<< endl;*/
+                    locTmp++;
+                    break;
+                }
+            }
+            /*if (foundLoc)
+                cout << locs[year-1].year << " => " << locs[year-1].locsArray[locTmp].ID << " => "
+                     << locs[year-1].locsArray[locTmp].demand<< endl;*/
+            /*else
+                cout << locs[year-1].locsArray[locNum].ID << " not found" << endl;
+
+            if (locNum == 10)
+                exit(0);*/
+        }
+    }
+
+
+    /*for (int year = 0;year < demand.size()-1;year++){
         locs[year].year = year;
-        locs[year].locsArray = (locality*)malloc(demand[0].second.size() * sizeof(locality));
+        //locs[year].locsArray = (locality*)malloc(demand[0].second.size() * sizeof(locality));
+        locs[year].locsArray = new locality[demand[0].second.size()];
         for(int locNum=0; locNum < demand[0].second.size(); locNum++){ // Tamaño de localidades
-            locality loc;
+            locality &loc;
             loc.ID =  int(demand[0].second[locNum]);
             loc.demand = float(demand[year].second[locNum]);//load demand in tons
             for (int row = 0; row < rows; row++) {
@@ -196,8 +250,10 @@ int readLocalities(float *map_local, int rows, int cols, localities *locs, int c
                 }
             }
             foundLoc:
+            cout << locs[year].year << " => " << locs[year].locsArray[0].ID << " => " << locs[year].locsArray[0].demand << endl;
         }
-    }
+    }*/
+
     return countLoc;
 }
 
@@ -252,13 +308,13 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
         stringstream ss(line);
 
         // Keep track of the current column index
-        int colIdx = 0, id;
+        int colIdx = 0, id = 0;
         while(getline(ss, value, ',')){
             //cout << value << endl;
             // Convert first value to numeric
             if(colIdx == 0){
                 value.erase(remove(value.begin(), value.end(), '"'), value.end()); // remove special " char.
-                id = stoi(value);
+                id = stoi(value);// TODO: 
             } // Remove values only for the first element
 
             // Add value to vector
@@ -359,7 +415,6 @@ float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, in
         }
     //cout<<"Total locs: "<< countLocs<< endl;
     return matrix;
-
 }
 
 

@@ -1,4 +1,4 @@
-/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.7lcACLr7xv -B /tmp/tmp.7lcACLr7xv/cmake-build-debug
+/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.S8b7dcPCXy -B /tmp/tmp.S8b7dcPCXy/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: /tmp/tmp.7lcACLr7xv/cmake-build-debug
+-- Build files have been written to: /tmp/tmp.S8b7dcPCXy/cmake-build-debug
