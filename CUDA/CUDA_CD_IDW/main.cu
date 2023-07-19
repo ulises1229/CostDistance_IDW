@@ -14,6 +14,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <unordered_map>
 
 
 // structure definition
@@ -29,13 +30,14 @@ typedef struct localities{
     locality * locsArray;
 }localities;
 
+
 // Methods definition
 void parseParameters(int argc, const char** argv);
 void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string scenario);
 float* importRaster(string name, int &rows, int &cols, float &scale, int &cell_null);
-float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs);
-vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix);
-int readLocalities(float *map_local, int rows, int cols, localities *locs, int cell_null, vector<pair<string, vector<float>>> demand);
+float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs, std::map<int, std::pair<int, int>> &matrixMap);
+void loadCSVDemmand(string name, float *locsMatrix, unordered_map<int, vector<float>> &demand);
+int readLocalities(float *map_local, int rows, int cols, localities *locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap);
 float* resetMatrix(int rows,  int cols, float val1);
 
 //Global variable definition
@@ -69,7 +71,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     // Variable declaration
     int rows, cols, nullValue = 0, locsNum= 0;
     float scale;// map scale
-    vector<pair<string, vector<float>>> demand;// Vector to store demand of all years
+    unordered_map<int, vector<float>> demand;// Vector to store demand of all years
     //map<int, locality> localities;// map of localities
     localities *locs;
     const int moves[2][8]={{1, 1, 0, -1, -1, -1, 0,  1},{0, 1, 1, 1,  0,  -1, -1, -1}}; // all possible combinations of movements in a map including diagonals
@@ -86,15 +88,20 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 
     // Import Localities map
     long long int numLocs=0;
-    locsMatrix = importLocsRaster(locsMap, rows, cols, scale, nullValue, numLocs);
+    // TODO: store locs ands its position into a struct
+    std::map<int, std::pair<int, int>> matrixMap;
+    locsMatrix = importLocsRaster(locsMap, rows, cols, scale, nullValue, numLocs, matrixMap);
+
+    //cout << "number of locs in map: " << matrixMap.size() << endl;
+    //cout << "Number of locs in  tiff: " << numLocs << endl;
 
     cout <<"Loading demand..." << endl;
     // Load demand per year
-    demand = loadDemmand(demmandFile, locsMatrix);
+    loadCSVDemmand(demmandFile, locsMatrix, demand);
 
 
     // count the number of localities
-    locsNum = readLocalities(locsMatrix, rows, cols, locs, nullValue, demand);
+    locsNum = readLocalities(locsMatrix, rows, cols, locs, nullValue, demand, matrixMap);
     cout << "Total number of localities " <<" " << locsNum << endl;
 
 
@@ -183,42 +190,50 @@ float* resetMatrix(int rows, int cols, float val1){
  * This function counts the number of localities in a map
  * TODO: this might be unnecesary in future releases.
  */
-int readLocalities(float *map_local, int rows, int cols, localities *locs, int cell_null, vector<pair<string, vector<float>>> demand) {
+int readLocalities(float *map_local, int rows, int cols, localities *locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap) {
     //cout << "Enter to readLocs" << endl;
 
-    int countLoc = demand[0].second.size();
+
+    int countLoc = matrixMap.size(); // Size of locs stored in the CSV
     //locs = (localities*)malloc(demand.size() * sizeof(localities));
-    int size = demand.size()-2;
-    locs = new localities [size];
+    int size = demand.size() - 2;
+    locs = new localities[size];
 
-    //int rasterID = int(map_local[(cols * row) + col]); //rasterized map
-
-    for (int year = 1; year < demand.size()-2; year++) {
-        locs[year-1].year = year;
-        locs[year-1].locsArray = new locality[demand[0].second.size()];
+    for (int year = 1; year < demand.size() - 2; year++) {
+        locs[year - 1].year = year;
+        locs[year - 1].locsArray = new locality[size];
         int locTmp = 0;
-        for (int locNum = 0; locNum < demand[0].second.size(); locNum++) {
+
+        for (const auto &entry: matrixMap) {
+            locs[year - 1].locsArray[locTmp].ID = entry.first;
+            locs[year - 1].locsArray[locTmp].row = entry.second.first;
+            locs[year - 1].locsArray[locTmp].col = entry.second.second;
+
+            // TODO: Store CSV values in an unrodered map
+        }
+    }
+    return countLoc;
+}
+
+        /*for (int locNum = 0; locNum < demand[0].second.size(); locNum++) {
             bool foundLoc = false;
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
                     int ID = map_local[(cols * row) + col];
                     if (map_local[(cols * row) + col] == demand[0].second[locNum]) {
                         // Locality was found in the locs tif raster add data to structure
-                        locs[year-1].locsArray[locTmp].ID =static_cast<int>(demand[0].second[locNum]);
+
                         locs[year-1].locsArray[locTmp].demand = static_cast<float>(demand[year].second[locNum]);
-                        locs[year-1].locsArray[locTmp].row = row;
-                        locs[year-1].locsArray[locTmp].col = col;
+
                         foundLoc = true;
                         break;
                     }
                 }
                 if (foundLoc) {
-                    /*cout << locs[year-1].year << " => " << locs[year-1].locsArray[locTmp].ID << " => "
-                         << locs[year-1].locsArray[locTmp].demand<< endl;*/
                     locTmp++;
                     break;
                 }
-            }
+            }*/
             /*if (foundLoc)
                 cout << locs[year-1].year << " => " << locs[year-1].locsArray[locTmp].ID << " => "
                      << locs[year-1].locsArray[locTmp].demand<< endl;*/
@@ -227,58 +242,31 @@ int readLocalities(float *map_local, int rows, int cols, localities *locs, int c
 
             if (locNum == 10)
                 exit(0);*/
-        }
-    }
 
 
-    /*for (int year = 0;year < demand.size()-1;year++){
-        locs[year].year = year;
-        //locs[year].locsArray = (locality*)malloc(demand[0].second.size() * sizeof(locality));
-        locs[year].locsArray = new locality[demand[0].second.size()];
-        for(int locNum=0; locNum < demand[0].second.size(); locNum++){ // Tamaño de localidades
-            locality &loc;
-            loc.ID =  int(demand[0].second[locNum]);
-            loc.demand = float(demand[year].second[locNum]);//load demand in tons
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    if(map_local[(cols * row) + col] == loc.ID){
-                        loc.row = row;
-                        loc.col = col;
-                        locs[year].locsArray[locNum] = loc;
-                        goto foundLoc;
-                    }
-                }
-            }
-            foundLoc:
-            cout << locs[year].year << " => " << locs[year].locsArray[0].ID << " => " << locs[year].locsArray[0].demand << endl;
-        }
-    }*/
 
-    return countLoc;
-}
+
+
+
 
 /*
  * This function reads localities from a CSV file and stores their demmand per year.
  * Input: CSV filename
  * Output: a vector with ID and demmand per year.
  */
-
-vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
-    //localities * result2 = new ;
-    vector<pair<string, vector<float>>> result;
+void loadCSVDemmand(string name, float *locsMatrix, unordered_map<int, vector<float>> demand){
+    //localities * demand = new ;
+    //vector<pair<string, vector<float>>> result;
+    //unordered_map<int, vector<float>> demand;
     // Create an input filestream
     std::ifstream myFile(name);
-
     // Make sure the file is open
     if(!myFile.is_open())
         throw runtime_error("Could not open file");
-
-
     // Helper variables
     string line, colname, value;
    // float val;
-
-    // Step 1) Read the column names
+    // Step 1) Read the column names ignore this information
     if(myFile.good())
     {
         // Extract the first line in the file
@@ -289,10 +277,10 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
 
         // Extract each column name // This while are goint to finish once all titles have completed
         while(getline(ss, colname, ',')){
-
             colname.erase(remove(colname.begin(), colname.end(), '"'), colname.end());
             // Initialize and add <colname, int vector> pairs to result
-            result.push_back({colname, vector<float> {}});
+            //result.push_back({colname, vector<float> {}});
+            //demand[colname] = std::vector<float>{};
         }
     }
     else
@@ -306,7 +294,6 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
     {
         // Create a stringstream of the current line
         stringstream ss(line);
-
         // Keep track of the current column index
         int colIdx = 0, id = 0;
         while(getline(ss, value, ',')){
@@ -314,11 +301,11 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
             // Convert first value to numeric
             if(colIdx == 0){
                 value.erase(remove(value.begin(), value.end(), '"'), value.end()); // remove special " char.
-                id = stoi(value);// TODO: 
-            } // Remove values only for the first element
-
-            // Add value to vector
-            result.at(colIdx).second.push_back(stof(value));
+                id = stoi(value);
+                demand[id] = std::vector<float>{};// TODO:
+            }
+            else
+                demand[id].push_back(stof(value));// Remove values only for the first element
 
             // If the next token is a comma, ignore it and move on
             if(ss.peek() == ',') ss.ignore();
@@ -327,11 +314,10 @@ vector<pair<string, vector<float>>> loadDemmand(string name, float *locsMatrix){
 
         }
     }
-
     // Close file
     myFile.close();
 
-    return result;
+    //return result;
 }
 
 float* importRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null){
@@ -373,8 +359,9 @@ float* importRaster(std::string name, int &rows, int &cols, float &scale, int &c
 
 }
 
-float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs){
+float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs, std::map<int, std::pair<int, int>> &matrixMap){
     int row,col;//iteradores matriz
+    //std::map<int, std::pair<int, int>> matrixMap; // map to store
     GDALDataset *dataset;
     GDALAllRegister();
     string ds = name;
@@ -406,14 +393,12 @@ float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, in
         for ( col = 0; col < cols; col++){
             location = (cols * (row)) + col;
             matrix[(cols*row)+col] = *(pBuf+location);
-
             if (matrix[(cols*row)+col] != cell_null && matrix[(cols*row)+col] != 0){
-                //cout << "mat: " <<matrix[(cols*row)+col]<< endl;
+                matrixMap[matrix[(cols*row)+col]] = std::make_pair(row, col);
                 countLocs++;
             }
 
         }
-    //cout<<"Total locs: "<< countLocs<< endl;
     return matrix;
 }
 

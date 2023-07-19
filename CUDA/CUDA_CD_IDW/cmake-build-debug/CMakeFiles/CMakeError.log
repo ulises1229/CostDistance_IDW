@@ -1,0 +1,10 @@
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /usr/bin/nvcc 
+Build flags: 
+Id flags: --cuda-gpu-arch=sm_52 -v
+
+The output was:
+1
+nvcc fatal   : Unknown option '--cuda-gpu-arch=sm_52'
+
+
