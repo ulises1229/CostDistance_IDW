@@ -208,6 +208,12 @@ int readLocalities(float *map_local, int rows, int cols, localities *locs, int c
             locs[year - 1].locsArray[locTmp].ID = entry.first;
             locs[year - 1].locsArray[locTmp].row = entry.second.first;
             locs[year - 1].locsArray[locTmp].col = entry.second.second;
+            demand = 
+            locs[year - 1].locsArray[locTmp].demand =
+
+
+
+
 
             // TODO: Store CSV values in an unrodered map
         }
@@ -254,7 +260,7 @@ int readLocalities(float *map_local, int rows, int cols, localities *locs, int c
  * Input: CSV filename
  * Output: a vector with ID and demmand per year.
  */
-void loadCSVDemmand(string name, float *locsMatrix, unordered_map<int, vector<float>> demand){
+void loadCSVDemmand(string name, float *locsMatrix, unordered_map<int, vector<float>> &demand){
     //localities * demand = new ;
     //vector<pair<string, vector<float>>> result;
     //unordered_map<int, vector<float>> demand;
