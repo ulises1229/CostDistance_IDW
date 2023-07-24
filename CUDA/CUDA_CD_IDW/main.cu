@@ -112,7 +112,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     cout << "num of years: " << years << endl;
 
     // 1) Declare device variables
-    float* d_fric_matrix, *d_locs, *d_IDW_matrix;
+    float* d_fric_matrix, *d_locsStr, *d_IDW_matrix;
 
     size_t  matSize = rows * cols *sizeof(float);
     size_t locsSize = locsNum * sizeof(localities);
@@ -123,7 +123,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     cudaStatus = cudaMalloc((void**)&d_IDW_matrix, matSize);
 
     // Locs allocation
-    cudaStatus = cudaMalloc((void**)&d_locs, locsSize);
+    cudaStatus = cudaMalloc((void**)&d_locsStr, locsSize);
 
 
 
@@ -135,9 +135,10 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     }
 
     // 3) Copy data from host  to devide IDW, fric, locs
-    cudaMemcpy(d_fric_matrix, fric_matrix, size, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_fric_matrix, d_locsMatrix, size, cudaMemcpyHostToDevice); // Not necessary
-    cudaMemcpy(d_fric_matrix, d_IDW_matrix, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_fric_matrix, fric_matrix, matSize, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_fric_matrix, d_IDW_matrix, matSize, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_fric_matrix, d_locsStr, locsSize, cudaMemcpyHostToDevice); // Not necessary
+
 
 
     // 4) Instantiate the Kernel
@@ -147,7 +148,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     // 6) free cuda mem
 
     cudaFree(d_fric_matrix);
-    cudaFree(d_locsMatrix);
+    cudaFree(d_locsStr);
     cudaFree(d_IDW_matrix);
 
     // TODO: start the parallel calculation of CD
