@@ -37,7 +37,7 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 float* importRaster(string name, int &rows, int &cols, float &scale, int &cell_null);
 float* importLocsRaster(std::string name, int &rows, int &cols, float &scale, int &cell_null, long long int &countLocs, std::map<int, std::pair<int, int>> &matrixMap);
 void loadCSVDemmand(string name, float *locsMatrix, unordered_map<int, vector<float>> &demand);
-int generateLocsStruct(float *map_local, int rows, int cols, localities &locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap);
+int generateLocsStruct(float *map_local, int rows, int cols, localities **locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap);
 float* resetMatrix(int rows,  int cols, float val1);
 
 //Global variable definition
@@ -128,13 +128,6 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
             // ... do something with row, col, ID, and demand
         }
     }
-    // Biomass requirement
-    /*map<int, float> requiredBiomass;
-    for(int year= 1; year < demand.size(); year++){
-        for(int loc=0; loc < demand[0].second.size(); loc++){ // Tamaño de localidades
-            requiredBiomass.insert(pair<int, float>(int(demand[0].second[loc]), float(demand[year].second[loc])));//load demand in tons
-        }
-    }*/
 
     // 1) Declare host variables
     float* d_fric_matrix, * d_locsMatrix, *d_IDW_matrix;
@@ -186,19 +179,93 @@ float* resetMatrix(int rows, int cols, float val1){
     return(IDW);
 }
 
+
+
+
+int generateLocsStruct(float *map_local, int rows, int cols, localities **locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap) {
+    int countLoc = matrixMap.size();
+    *locs = new localities[demand.size()];
+
+    for (int year = 0; year < demand.size(); year++) {
+        (*locs)[year].year = year;
+        (*locs)[year].locsArray = new locality[countLoc];
+        int locTmp = 0;
+
+        for (const auto &entry : matrixMap) {
+            int locID = entry.first;
+            auto it = demand.find(locID);
+            if (it != demand.end()) {
+                auto &demandValues = it->second;
+
+                auto matrixMapEntry = matrixMap.find(locID);
+                if (matrixMapEntry != matrixMap.end()) {
+                    int locRow = matrixMapEntry->second.first;
+                    int locCol = matrixMapEntry->second.second;
+
+                    (*locs)[year].locsArray[locTmp].ID = locID;
+                    (*locs)[year].locsArray[locTmp].row = locRow;
+                    (*locs)[year].locsArray[locTmp].col = locCol;
+                    (*locs)[year].locsArray[locTmp].demand = demandValues[year];
+
+                    locTmp++;
+                }
+            }
+        }
+    }
+
+    return countLoc;
+}
+
+
+
+/*int generateLocsStruct(float *map_local, int rows, int cols, localities **locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap) {
+    int countLoc = matrixMap.size();
+    *locs = new localities[demand.size()];
+
+    for (int year = 0; year < demand.size(); year++) {
+        (*locs)[year].year = year;
+        (*locs)[year].locsArray = new locality[countLoc];
+        int locTmp = 0;
+
+        for (const auto &entry : matrixMap) {
+            int locID = entry.first;
+            auto it = demand.find(locID);
+            if (it != demand.end()) {
+                auto &demandValues = it->second;
+
+                auto matrixMapEntry = matrixMap.find(locID);
+                if (matrixMapEntry != matrixMap.end()) {
+                    int locRow = matrixMapEntry->second.first;
+                    int locCol = matrixMapEntry->second.second;
+
+                    (*locs)[year].locsArray[locTmp].ID = locID;
+                    (*locs)[year].locsArray[locTmp].row = locRow;
+                    (*locs)[year].locsArray[locTmp].col = locCol;
+                    (*locs)[year].locsArray[locTmp].demand = demandValues[year];
+
+                    locTmp++;
+                }
+            }
+        }
+    }
+
+    return countLoc;
+}*/
+
+
 /*
  * This function builds a struct of localities with all data
  */
-int generateLocsStruct(float *map_local, int rows, int cols, localities &locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap) {
+/*int generateLocsStruct(float *map_local, int rows, int cols, localities *locs, int cell_null, unordered_map<int, vector<float>> &demand, std::map<int, std::pair<int, int>> &matrixMap) {
     int countLoc = matrixMap.size(); // Size of locs stored in the CSV
     //locs = (localities*)malloc(demand.size() * sizeof(localities));
-    int size = matrixMap.size() - 2;
+    int size = matrixMap.size();
     locs = new localities[size];
+
     for (int year = 0; year < demand.size(); year++) {
         locs[year].year = year;
         locs[year].locsArray = new locality[size];
         int locTmp = 0;
-
         for (const auto &entry: matrixMap) {
             locs[year].locsArray[locTmp].ID = entry.first;
             locs[year].locsArray[locTmp].row = entry.second.first;
@@ -209,7 +276,7 @@ int generateLocsStruct(float *map_local, int rows, int cols, localities &locs, i
         }
     }
     return countLoc;
-}
+}*/
 
 
 /*

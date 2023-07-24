@@ -1,18 +1,4 @@
-/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.S8b7dcPCXy -B /tmp/tmp.S8b7dcPCXy/cmake-build-release
--- The CUDA compiler identification is NVIDIA 12.1.66
--- Detecting CUDA compiler ABI info
--- Detecting CUDA compiler ABI info - done
--- Check for working CUDA compiler: /usr/bin/nvcc - skipped
--- Detecting CUDA compile features
--- Detecting CUDA compile features - done
--- Found GDAL: /usr/lib64/libgdal.so (found version "3.0.4") 
+/anaconda/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.EyBu7yJYjf -B /tmp/tmp.EyBu7yJYjf/cmake-build-release
 -- Configuring done
 -- Generating done
-CMake Warning:
-  Manually-specified variables were not used by the project:
-
-    CMAKE_CXX_COMPILER
-    CMAKE_C_COMPILER
-
-
--- Build files have been written to: /tmp/tmp.S8b7dcPCXy/cmake-build-release
+-- Build files have been written to: /tmp/tmp.EyBu7yJYjf/cmake-build-release
