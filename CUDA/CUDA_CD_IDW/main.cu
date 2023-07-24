@@ -73,7 +73,8 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
     float scale;// map scale
     unordered_map<int, vector<float>> demand;// Vector to store demand of all years
     //map<int, locality> localities;// map of localities
-    localities *locs;
+    localities* locs = nullptr;
+
     const int moves[2][8]={{1, 1, 0, -1, -1, -1, 0,  1},{0, 1, 1, 1,  0,  -1, -1, -1}}; // all possible combinations of movements in a map including diagonals
 
 
@@ -101,44 +102,31 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 
 
     // count the number of localities
-    locsNum = generateLocsStruct(locsMatrix, rows, cols, locs, nullValue, demand, matrixMap);
+    locsNum = generateLocsStruct(locsMatrix, rows, cols, &locs, nullValue, demand, matrixMap);
     cout << "Total number of localities " <<" " << locsNum << endl;
 
 
     int sizeLocs = locsNum * sizeof(localities);
 
-    cout << locsNum <<endl;
+    int years = demand.begin()->second.size();
+    cout << "num of years: " << years << endl;
 
-    for (int i = 0; i < locsNum; i++) {
-        localities* currentLocs = &locs[i];
-        int year = currentLocs->year;
-        locality* locsArray = currentLocs->locsArray;
+    // 1) Declare device variables
+    float* d_fric_matrix, *d_locs, *d_IDW_matrix;
 
-        // Iterate over the localities within the current localities struct
-        for (int j = 0; j < locsNum; j++) {
-            locality* currentLocality = &locsArray[j];
-            // Access and work with the current locality
-            int row = currentLocality->row;
-            int col = currentLocality->col;
-            int ID = currentLocality->ID;
-            float demand = currentLocality->demand;
-
-            cout << ID << "=>" << demand << endl;
-
-            // ... do something with row, col, ID, and demand
-        }
-    }
-
-    // 1) Declare host variables
-    float* d_fric_matrix, * d_locsMatrix, *d_IDW_matrix;
-
-    size_t  size = rows * cols *sizeof(float);
-
+    size_t  matSize = rows * cols *sizeof(float);
+    size_t locsSize = locsNum * sizeof(localities);
 
     // 2) Allocate device memory
-    cudaError_t cudaStatus = cudaMalloc((void**)&d_fric_matrix, size);
-    cudaStatus = cudaMalloc((void**)&d_locsMatrix, size);
-    cudaStatus = cudaMalloc((void**)&d_IDW_matrix, size);
+    // Matrices
+    cudaError_t cudaStatus = cudaMalloc((void**)&d_fric_matrix, matSize);
+    cudaStatus = cudaMalloc((void**)&d_IDW_matrix, matSize);
+
+    // Locs allocation
+    cudaStatus = cudaMalloc((void**)&d_locs, locsSize);
+
+
+
     //cudaError_t cudaStatus = cudaMalloc((void**)&d_IDW_matrix, size);
 
     //TODO: validate each device memory allocation
@@ -206,7 +194,7 @@ int generateLocsStruct(float *map_local, int rows, int cols, localities **locs, 
                     (*locs)[year].locsArray[locTmp].row = locRow;
                     (*locs)[year].locsArray[locTmp].col = locCol;
                     (*locs)[year].locsArray[locTmp].demand = demandValues[year];
-
+                    //cout << "Demand: " <<(*locs)[year].locsArray[locTmp].demand << endl;
                     locTmp++;
                 }
             }
