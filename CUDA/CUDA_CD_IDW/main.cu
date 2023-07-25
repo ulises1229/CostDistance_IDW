@@ -49,6 +49,48 @@ float exponent = 1.005;
 const char *projection;
 double adfGeoTransform[6];
 
+// CUDA kernel for CD calculation
+__global__ void CD_Calculation(const float* fric_matrix, const int rows, const int cols,
+                               const int nullValue, const int isFriccRelative,
+                               const int numLocs, const int numYears,
+                               const float* demands, const float exponents,
+                               float* idw_matrix) {
+
+    int localityIdx = blockIdx.x * blockDim.x + threadIdx.x;
+
+    // Check if the thread index is within the valid locality range
+    if (localityIdx < numLocs) {
+        int localityID = demands[localityIdx * numYears]; // Get the locality ID
+
+        // Calculate CD for each year for the current locality
+        for (int year = 1; year <= numYears; year++) {
+            int demandIndex = localityIdx * numYears + year;
+            float biomass = demands[demandIndex] / 1000.0f; // Convert biomass to tons
+
+            // CD calculation (as in the original code)
+            // ...
+        }
+    }
+}
+
+
+// Helper function to run the CUDA kernel for CDIDW calculation
+void RunCDIDW_CUDA(const float* d_fric_matrix, const int rows, const int cols,
+                   const int nullValue, const int isFriccRelative,
+                   const int numLocs, const int numYears,
+                   const float* d_demands, const float d_exponent,
+                   float* d_idw_matrix) {
+
+    // Define CUDA block and grid dimensions
+    int threadsPerBlock = 256;
+    int numBlocks = (numLocs + threadsPerBlock - 1) / threadsPerBlock;
+
+    // Launch the CUDA kernel
+    CD_Calculation<<<numBlocks, threadsPerBlock>>>(d_fric_matrix, rows, cols, nullValue,
+                                                   isFriccRelative, numLocs, numYears,
+                                                   d_demands, d_exponent, d_idw_matrix);
+}
+
 
 int main(int argc, const char** argv) {
     // Parse parameters from command line
@@ -108,8 +150,8 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 
     int sizeLocs = locsNum * sizeof(localities);
 
-    int years = demand.begin()->second.size();
-    cout << "num of years: " << years << endl;
+    int numYears = demand.begin()->second.size();
+    cout << "num of years: " << numYears << endl;
 
     // 1) Declare device variables
     float* d_fric_matrix, *d_locsStr, *d_IDW_matrix;
@@ -136,12 +178,16 @@ void RunCDIDW(string frictionMap, string demmandFile, string locsMap, string sce
 
     // 3) Copy data from host  to devide IDW, fric, locs
     cudaMemcpy(d_fric_matrix, fric_matrix, matSize, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_fric_matrix, d_IDW_matrix, matSize, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_fric_matrix, d_locsStr, locsSize, cudaMemcpyHostToDevice); // Not necessary
+    cudaMemcpy(d_IDW_matrix, IDW_matrix, matSize, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_locsStr, locs, locsSize, cudaMemcpyHostToDevice); // Not necessary
 
 
 
     // 4) Instantiate the Kernel
+    // Call the CUDA kernel for CDIDW calculation
+    RunCDIDW_CUDA(d_fric_matrix, rows, cols, nullValue, isFriccRelative, numLocs, numYears,
+                  d_locsStr, exponent, d_IDW_matrix);
+
 
     // 5) Copy memory from device
 
