@@ -1,0 +1,1 @@
+/usr/bin/g++  -std=c++14 -fopenmp -g CMakeFiles/OMP_specificYear.dir/main.cpp.o CMakeFiles/OMP_specificYear.dir/Methods_IDW_CD.cpp.o CMakeFiles/OMP_specificYear.dir/Raster.cpp.o -o OMP_specificYear  -lgdal 
