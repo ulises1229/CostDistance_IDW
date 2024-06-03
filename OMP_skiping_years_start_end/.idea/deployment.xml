@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="Mofuss (8bbe252a-cdc2-464c-9d5b-a3fd95a763d6)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.soOBheKSwS" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="hpclab (3dfcc194-575b-4bbb-9f73-24c8b2c1e0b9)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.vRWSxJ5Nbe" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

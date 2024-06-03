@@ -1,0 +1,1 @@
+/usr/bin/g++  -std=c++14 -fopenmp -g CMakeFiles/OMP_skiping_years.dir/main.cpp.o CMakeFiles/OMP_skiping_years.dir/Methods_IDW_CD.cpp.o CMakeFiles/OMP_skiping_years.dir/Raster.cpp.o -o OMP_skiping_years  -lgdal 
